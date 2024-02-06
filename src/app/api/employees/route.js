@@ -22,7 +22,7 @@ export const GET = async req => {
             )
         }
         return NextResponse.json(
-            {message: isEmployeesEmpty},
+            {message: "Data pegawai tidak ditemukan"},
             {status: 200, statusText: "Ok"}
         )
     } catch (error) {
