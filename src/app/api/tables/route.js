@@ -8,7 +8,7 @@ export const GET = async req => {
         const getAllTables = await getDocs(collection(db, "tables"));
         const isDataEmpty = getAllTables.empty
         if(!isDataEmpty) {
-            const responseData = [];
+            let responseData = [];
             getAllTables.forEach(doc => {
                 const data = doc.data()
                 const id = doc.id
