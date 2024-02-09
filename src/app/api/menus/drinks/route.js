@@ -39,8 +39,8 @@ export const POST = async req => {
     const stock = formData.get('stock');
     const details = formData.get('details');
     const discount = formData.get('discount');
-    const images = formData.get('image');
-    if(!images || !name || !price || !stock || ! details || !discount) {
+    const image = formData.get('image');
+    if(!image || !name || !price || !stock || ! details || !discount) {
         return NextResponse.json(
             {message: "Harap lengkapi input data"},
             {status: 400, statusText: "Bad Request"}
@@ -52,7 +52,7 @@ export const POST = async req => {
         const searchDrink = await getDocs(drinkQuery)
         if(searchDrink.empty) {
             const storageRef = ref(storage, `images/drinks/drink_${id}`);
-            const snapshot = await uploadBytes(storageRef, images);
+            const snapshot = await uploadBytes(storageRef, image);
             const downloadURL = await getDownloadURL(snapshot.ref);
             if(downloadURL !== "" || downloadURL !== undefined) {
                 const docRef = doc(db, "drinks", id)
