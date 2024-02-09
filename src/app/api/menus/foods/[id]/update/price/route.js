@@ -12,19 +12,19 @@ export const POST = async (req, { params }) => {
         )
     }
     try {
-        const drinkRef = doc(db, "drinks", id);
-        const getDrink = await getDoc(drinkRef);
-        if(getDrink.exists()) {
-            await updateDoc(drinkRef, {
+        const foodRef = doc(db, "foods", id);
+        const getFood = await getDoc(foodRef);
+        if(getFood.exists()) {
+            await updateDoc(foodRef, {
                 price, discount
             })
             return NextResponse.json(
-                {message: "Data minuman berhasil diperbarui"},
+                {message: "Data makanan berhasil diperbarui"},
                 {status: 200, statusText: "Ok"}
             )
         }
         return NextResponse.json(
-            {message: "Data minuman tidak ditemukan"},
+            {message: "Data makanan tidak ditemukan"},
             {status: 404, statusText: "Not Found"}
         )
     } catch (error) {

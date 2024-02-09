@@ -14,44 +14,44 @@ export const POST = async (req, { params }) => {
         )
     }
     try {
-        const drinkRef = doc(db, "drinks", id)
-        const getDrink = await getDoc(drinkRef)
-        if(getDrink.exists()) {
-            const drinkImageRef = ref(storage, `images/drinks/drink_${id}`);
-            const imageMetadata = await getMetadata(drinkImageRef);
-            const storageRef = ref(storage, `images/drinks/drink_${id}`);
+        const foodRef = doc(db, "foods", id)
+        const getFood = await getDoc(foodRef)
+        if(getFood.exists()) {
+            const foodImageRef = ref(storage, `images/foods/food_${id}`);
+            const imageMetadata = await getMetadata(foodImageRef);
+            const storageRef = ref(storage, `images/foods/food_${id}`);
             if(imageMetadata.name) {
-                await deleteObject(drinkImageRef);
+                await deleteObject(foodImageRef);
                 const snapshot = await uploadBytes(storageRef, image);
                 const downloadURL = await getDownloadURL(snapshot.ref);
                 if(downloadURL !== "" || downloadURL !== undefined) {
-                    await updateDoc(drinkRef, { image_URI: downloadURL })
+                    await updateDoc(foodRef, { image_URI: downloadURL })
                     return NextResponse.json(
-                        { message: "Berhasil mengubah gambar data minuman"},
+                        { message: "Berhasil mengubah gambar data makanan"},
                         { status: 200, statusText: "Ok" }
                     );
                 }
                 return NextResponse.json(
-                    { message: "Gagal mengupload data minuman"},
+                    { message: "Gagal mengupload data makanan"},
                     { status: 500, statusText: "Internal Server Error" }
                 );
             }
             const snapshot = await uploadBytes(storageRef, image);
             const downloadURL = await getDownloadURL(snapshot.ref);
             if(downloadURL !== "" || downloadURL !== undefined) {
-                await updateDoc(drinkRef, { image_URI: downloadURL })
+                await updateDoc(foodRef, { image_URI: downloadURL })
                 return NextResponse.json(
-                    { message: "Berhasil menambah gambar data minuman"},
+                    { message: "Berhasil menambah gambar data makanan"},
                     { status: 200, statusText: "Ok" }
                 );
             }
             return NextResponse.json(
-                { message: "Gagal mengupload data minuman"},
+                { message: "Gagal mengupload data makanan"},
                 { status: 500, statusText: "Internal Server Error" }
             );
         }
         return NextResponse.json(
-            {message: "Data minuman tidak ditemukan"},
+            {message: "Data makanan tidak ditemukan"},
             {status: 404, statusText: "Not Found"}
         )
     } catch (error) {
