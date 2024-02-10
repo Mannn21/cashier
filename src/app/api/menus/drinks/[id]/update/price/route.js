@@ -10,7 +10,7 @@ export const POST = async (req, { params }) => {
             {message: "Mohon lengkapi data input"},
             {status: 400, statusText: "Bad Request"}
         )
-    }
+    } 
     try {
         const drinkRef = doc(db, "drinks", id);
         const getDrink = await getDoc(drinkRef);
