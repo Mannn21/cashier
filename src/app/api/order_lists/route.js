@@ -1,11 +1,41 @@
 import { NextResponse } from "next/server";
-import { doc, setDoc, getDoc, getDocs, collection, where, query } from "firebase/firestore";
+import { doc, setDoc, getDoc, getDocs, collection, updateDoc } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid"
 import { db } from "@/app/firebase";
+import { currentTime } from "@/lib/currentTime";
+
+export const GET = async req => {
+    try {
+        const getAllOrderLists = await getDocs(collection(db, "order_lists"));
+        const isDataEmpty = getAllOrderLists.empty
+        if(!isDataEmpty) {
+            let responseData = [];
+            getAllOrderLists.forEach(doc => {
+                const data = doc.data();
+                const id = doc.id;
+                const { orders, table_id, customer_name, date, order_time, cashier_id, total_price, total_item, total_discount, total_payment, status, total_return } = data;
+                responseData.push({orders, table_id, customer_name, date, order_time, cashier_id, total_price, total_item, total_discount, total_payment, status, total_return});
+            })
+            return NextResponse.json(
+                {message: responseData},
+                {status: 200, statusText: "Ok"}
+            )
+        }
+        return NextResponse.json(
+            {message: "Data pesanan tidak tersedia"},
+            {status: 404, statusText: "Not Found"}
+        )
+    } catch (error) {
+        return NextResponse.json(
+            {message: "Kesalahan pada server"},
+            {status: 500, statusText: "Internal Server Eror"}
+        )
+    }
+}
 
 export const POST = async req => {
-    const { orders, table_id, customer_name, date, order_time, cashier_id, total_price, total_item, total_discount, total_payment, message } = await req.json();
-    if(!orders || !table_id || !customer_name || !date || !order_time || !cashier_id || total_item < 1 || total_payment < 0 || total_price < 0) {
+    const { orders, table_id, customer_name, date, cashier_id, total_price, total_item, total_discount, total_payment } = await req.json();
+    if(!orders || !table_id || !customer_name || !date  || !cashier_id || total_item < 1 || total_payment < 0 || total_discount < 0 || total_price < 0) {
         return NextResponse.json(
             {message: "Harap lengkapi data input"},
             {status: 400, statusText: "Bad Request"}
@@ -74,14 +104,52 @@ export const POST = async req => {
             )
         }
         // Kelanjutan Logika Bisnis
-        // const id = uuidv4();
-        // const docRef = doc(db, "order_lists", id)
-        // await setDoc(docRef, {
+        let totalDiscount = 0;
+        let totalPriceBeforeDiscount = 0;
+        for (const order of orders) {
+            const { quantity, discount_order, price_order, total_price } = order;
 
-        // })
+            const discountAmount = (discount_order / 100) * price_order * quantity;
+            totalDiscount += discountAmount;
+
+            const priceBeforeDiscount = total_price + discountAmount;
+            totalPriceBeforeDiscount += priceBeforeDiscount
+        }
+        const finalPrice = totalPriceBeforeDiscount - totalDiscount;
+        if(totalDiscount !== total_discount || total_price !== finalPrice) {
+            return NextResponse.json(
+                {message: "Total harga pesanan tidak sesuai"},
+                {status: 400, statusText: "Bad Request"}
+            )
+        }
+        const time = currentTime()
+        for (const order of orders) {
+            const { id, category, quantity, discount_order, price_order, total_price } = order;
+            const productRef = doc(db, category, id);
+            const searchProduct = await getDoc(productRef)
+            const stock = searchProduct.data().stock
+            await updateDoc(productRef, {
+                stock: stock - quantity
+            })
+
+            const discountAmount = (discount_order / 100) * price_order * quantity;
+            totalDiscount += discountAmount;
+
+            const priceBeforeDiscount = total_price + discountAmount;
+            totalPriceBeforeDiscount += priceBeforeDiscount
+        }
+        await updateDoc(tableRef, {
+            status: true
+        })
+        const total_return = total_payment - total_price
+        const id = uuidv4();
+        const docRef = doc(db, "order_lists", id)
+        await setDoc(docRef, {
+            orders, table_id, customer_name, date, order_time: time, cashier_id, total_price, total_item, total_discount, total_payment, status: false, total_return
+        }) 
         return NextResponse.json(
-            {message: searchTable.data()},
-            {status: 200, statusText: "Ok"}
+            {message: `Pesanan berhasil dibuat, total kembalian adalah Rp.${total_return}`},
+            {status: 201, statusText: "Created"}
         )
 
     } catch (error) {
