@@ -47,6 +47,7 @@ export const GET = async req => {
                     totalReturn: data.total_return,
                 });
             }
+			console.log(responseData)
             return NextResponse.json(
                 { message: responseData },
                 { status: 200, statusText: "Ok" }

@@ -55,7 +55,6 @@ export const GET = async (req, { params }) => {
     }
 }
 
-// MASIH ERROR
 export const PUT = async (req, {params}) => {
     const { id } = await params;
     if(!id) {
@@ -84,18 +83,18 @@ export const PUT = async (req, {params}) => {
             const historyRef = doc(db, "history", searchOrder.id);
             await setDoc(historyRef, {
                 orders: data.orders,
-                tableCategory: table.category,
-                customerName: data.customer_name,
-                dateOrder: data.date,
-                timeOrder: data.order_time,
-                timeFinish: time,
-                cashierName: cashier.name,
-                totalPrice: data.total_price,
-                totalItem: data.total_item,
-                totalDiscount: data.total_discount,
-                totalPayment: data.total_payment,
+                table_category: table.category,
+                customer_name: data.customer_name,
+                date_order: data.date,
+                time_order: data.order_time,
+                time_finish: time,
+                cashier_name: cashier.name,
+                total_price: data.total_price,
+                total_item: data.total_item,
+                total_discount: data.total_discount,
+                total_payment: data.total_payment,
                 status: true,
-                totalReturn: data.total_return
+                total_return: data.total_return
             })
             return NextResponse.json(
                 {message: "Pesanan telah dihidangkan"},
