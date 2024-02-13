@@ -9,7 +9,7 @@ import {
 } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
 import { db } from "@/app/firebase";
-import { currentTime } from "@/lib/currentTime";
+import { currentTime } from "@/utils/currentTime";
 
 export const GET = async req => {
     try {

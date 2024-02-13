@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { doc, setDoc, getDoc, updateDoc, deleteDoc } from "firebase/firestore";
 import { db } from "@/app/firebase";
-import { currentTime } from "@/lib/currentTime";
+import { currentTime } from "@/utils/currentTime";
 
 export const GET = async (req, { params }) => {
     const { id } = await params;
