@@ -55,6 +55,7 @@ export const GET = async (req, { params }) => {
     }
 }
 
+// MASIH ERROR
 export const PUT = async (req, {params}) => {
     const { id } = await params;
     if(!id) {
@@ -78,6 +79,7 @@ export const PUT = async (req, {params}) => {
             })
             const data = searchOrder.data()
             const cashier = searchCashier.data()
+            console.log(data)
             const table = searchTable.data()
             const historyRef = doc(db, "history", searchOrder.id);
             await setDoc(historyRef, {
@@ -86,13 +88,13 @@ export const PUT = async (req, {params}) => {
                 customerName: data.customer_name,
                 dateOrder: data.date,
                 timeOrder: data.order_time,
-                timeFinish: data.finish_time,
+                timeFinish: time,
                 cashierName: cashier.name,
                 totalPrice: data.total_price,
                 totalItem: data.total_item,
                 totalDiscount: data.total_discount,
                 totalPayment: data.total_payment,
-                status: data.status,
+                status: true,
                 totalReturn: data.total_return
             })
             return NextResponse.json(
