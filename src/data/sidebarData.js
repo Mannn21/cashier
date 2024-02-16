@@ -1,15 +1,15 @@
-import { mdiViewDashboard, mdiBasket, mdiHistory, mdiPackageVariantClosed, mdiAccountTie } from '@mdi/js';
+import { mdiViewDashboardOutline, mdiBasketOutline, mdiHistory, mdiPackageVariantClosed, mdiAccountOutline } from '@mdi/js';
 
 export const sidebarData = [
     {
         title: "Dashboard",
         path: "/dashboard",
-        icon: mdiViewDashboard
+        icon: mdiViewDashboardOutline
     },
     {
         title: "Order List",
         path: "/dashboard/order_list",
-        icon: mdiBasket
+        icon: mdiBasketOutline
     },
     {
         title: "History",
@@ -24,6 +24,6 @@ export const sidebarData = [
     {
         title: "Profile",
         path: "/dashboard/profile",
-        icon: mdiAccountTie
+        icon: mdiAccountOutline
     },
 ]
