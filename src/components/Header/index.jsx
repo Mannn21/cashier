@@ -7,7 +7,7 @@ import Icon from '@mdi/react';
 import { mdiBell } from '@mdi/js';
 import { formattedCurrentDate } from "@/utils/formattedCurrentDate";
 
-const Navbar = () => {
+const Header = () => {
 	const pathname = usePathname();
 	const date = formattedCurrentDate()
 
@@ -43,4 +43,4 @@ const Navbar = () => {
 	);
 };
 
-export default Navbar;
+export default Header;
