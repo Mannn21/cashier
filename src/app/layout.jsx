@@ -12,7 +12,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
 	return (
 		<html lang="en">
-			<body className={montserrat.className}>
+			<body className={montserrat.className} suppressHydrationWarning={true}>
 				<ReduxProvider>{children}</ReduxProvider>
 			</body>
 		</html>

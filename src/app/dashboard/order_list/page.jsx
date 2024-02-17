@@ -8,15 +8,13 @@ export default function OrderList() {
 			<div className="w-full h-full flex flex-row gap-3 justify-start items-start">
 				<div className="w-3/4 h-full">
 					<div className="w-full h-auto py-2 flex flex-row justify-between items-center">
-						<span>Steps</span>
+						<span className="text-xl font-semibold tracking-wide text-color-tersier3">Total Menu: 20</span>
 						<SearchInput />
 					</div>
 					<div className="w-full h-auto py-2 flex flex-col justify-start items-start gap-2">
-						<span>Daftar Menu</span>
 						<Navbar />
 					</div>
 					<div>
-						<div>List Card Menu</div>
 						<CardList />
 					</div>
 				</div>
