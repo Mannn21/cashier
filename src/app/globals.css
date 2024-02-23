@@ -11,3 +11,11 @@
 body {
   background-color: #F0F8FF;
 }
+
+th, td {
+  @apply mx-3 p-2; 
+}
+
+td {
+  @apply text-center font-normal text-sm text-color-tersier3
+}

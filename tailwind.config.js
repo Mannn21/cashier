@@ -26,7 +26,8 @@ module.exports = {
 				tersier1: "#F5F5F5",
 				tersier2: "#A9A9A9",
 				tersier3: "#555555",
-				accent: "#FFD700",
+				accent: "#FF0000 ",
+				accentHover: "#CC0000 ",
 				dark: "#000000"
 			},
 		},
