@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const Card = () => {
 	return (
-		<div className="h-auto m-2 p-3 flex flex-col gap-2 rounded-md border border-color-tersier3 shadow-xl">
+		<div className="h-auto m-2 p-3 flex flex-col gap-2 rounded-md shadow-xl bg-color-primer">
 			<div className="w-full h-[180px] object-contain rounded-md overflow-hidden">
 				<Image
 					src="https://placehold.jp/300x300.png"

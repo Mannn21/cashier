@@ -1,6 +1,7 @@
 import SearchInput from "@/components/OrderList/SearchInput";
 import CardList from "@/components/OrderList/CardList";
 import Navbar from "@/components/OrderList/Navbar";
+import Invoice from "@/components/OrderList/Invoice";
 
 export default function OrderList() {
 	return (
@@ -19,9 +20,7 @@ export default function OrderList() {
 					</div>
 				</div>
                 <div className="w-1/4 h-full">
-                    <div>
-                        <span>Order Lists</span>
-                    </div>
+                    <Invoice />
                 </div>
 			</div>
 		</div>
