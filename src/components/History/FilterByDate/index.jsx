@@ -13,6 +13,8 @@ const FilterByDate = () => {
     width: 300,
     border: `1px solid ${token.colorBorderSecondary}`,
     borderRadius: token.borderRadiusLG,
+    backgroundColor: "#ffffff",
+    boxShadow: " 2px 2px 2px #222222",
   };
   return (
     <div style={wrapperStyle}>

@@ -1,4 +1,4 @@
-import AddInventory from "../addInventory";
+import AddInventory from "../AddInventory";
 import NavbarInventory from "../NavbarInventory";
 
 const HeaderInventory = () => {

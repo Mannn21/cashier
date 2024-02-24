@@ -27,7 +27,7 @@ const HistoryHeader = () => {
 							</div>
 						) : (
 							<div className="absolute">
-								<div className="w-auto h-auto cursor-pointer p-2 rounded-full text-color-primer bg-color-accent hover:bg-color-accentHover absolute -top-4 -right-8 ease-in-out duration-300 transition-all" onClick={handleCalendar}>
+								<div className="w-auto h-auto cursor-pointer p-2 rounded-full text-color-primer bg-color-accent hover:bg-color-accentHover absolute -top-4 -right-9 ease-in-out duration-300 transition-all" onClick={handleCalendar}>
 									<Icon
 										path={mdiWindowClose}
 										size={0.7}

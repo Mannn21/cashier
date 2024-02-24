@@ -12,10 +12,21 @@ body {
   background-color: #F0F8FF;
 }
 
+option, select {
+  @apply text-color-tersier3 font-normal text-sm tracking-wide p-1
+}
+
 th, td {
   @apply mx-3 p-2; 
 }
 
 td {
   @apply text-center font-normal text-sm text-color-tersier3
+}
+
+.dropdown {
+  box-shadow: 2px 2px 2px #222222;
+  border-radius: 6px;
+  background-color: #ffffff;
+  z-index: 99;
 }
