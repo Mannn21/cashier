@@ -1,176 +1,176 @@
 export const simulationTableData = [
     {
-        name: "table 1",
+        name: "Table 1",
         category: "Personal",
-        capacity: "1",
+        capacity: 1,
         status: false
     },
     {
-        name: "table 2",
+        name: "Table 2",
         category: "Personal",
-        capacity: "1",
+        capacity: 1,
         status: false
     },
     {
-        name: "table 3",
+        name: "Table 3",
         category: "Personal",
-        capacity: "1",
+        capacity: 1,
         status: true
     },
     {
-        name: "table 4",
+        name: "Table 4",
         category: "Personal",
-        capacity: "1",
+        capacity: 1,
         status: true
     },
     {
-        name: "table 5",
+        name: "Table 5",
         category: "Couple",
-        capacity: "2",
+        capacity: 2,
         status: true
     },
     {
-        name: "table 6",
+        name: "Table 6",
         category: "Couple",
-        capacity: "2",
+        capacity: 2,
         status: true
     },
     {
-        name: "table 7",
+        name: "Table 7",
         category: "Couple",
-        capacity: "2",
+        capacity: 2,
         status: true
     },
     {
-        name: "table 8",
+        name: "Table 8",
         category: "Couple",
-        capacity: "2",
+        capacity: 2,
         status: false
     },
     {
-        name: "table 9",
+        name: "Table 9",
         category: "Couple",
-        capacity: "2",
+        capacity: 2,
         status: true
     },
     {
-        name: "table 10",
+        name: "Table 10",
         category: "Couple",
-        capacity: "2",
+        capacity: 2,
         status: false
     },
     {
-        name: "table 11",
+        name: "Table 11",
         category: "Family",
-        capacity: "6",
+        capacity: 6,
         status: false
     },
     {
-        name: "table 12",
+        name: "Table 12",
         category: "Family",
-        capacity: "6",
+        capacity: 6,
         status: true
     },
     {
-        name: "table 13",
+        name: "Table 13",
         category: "Family",
-        capacity: "8",
+        capacity: 8,
         status: true
     },
     {
-        name: "table 14",
+        name: "Table 14",
         category: "Family",
-        capacity: "8",
+        capacity: 8,
         status: true
     },
     {
-        name: "table 15",
+        name: "Table 15",
         category: "Family",
-        capacity: "6",
+        capacity: 6,
         status: false
     },
     {
-        name: "table 16",
+        name: "Table 16",
         category: "Family",
-        capacity: "10",
+        capacity: 10,
         status: true
     },
     {
-        name: "table 17",
+        name: "Table 17",
         category: "Family",
-        capacity: "10",
+        capacity: 10,
         status: false
     },
     {
-        name: "table 18",
+        name: "Table 18",
         category: "Family",
-        capacity: "8",
+        capacity: 8,
         status: true
     },
     {
-        name: "table 19",
+        name: "Table 19",
         category: "Private",
-        capacity: "4",
+        capacity: 4,
         status: true
     },
     {
-        name: "table 20",
+        name: "Table 20",
         category: "Private",
-        capacity: "4",
+        capacity: 4,
         status: false
     },
     {
-        name: "table 21",
+        name: "Table 21",
         category: "Private",
-        capacity: "8",
+        capacity: 8,
         status: true
     },
     {
-        name: "table 22",
+        name: "Table 22",
         category: "Private",
-        capacity: "8",
+        capacity: 8,
         status: true
     },
     {
-        name: "table 23",
+        name: "Table 23",
         category: "Private",
-        capacity: "10",
+        capacity: 10,
         status: false
     },
     {
-        name: "table 24",
+        name: "Table 24",
         category: "Private",
-        capacity: "10",
+        capacity: 10,
         status: true
     },
     {
-        name: "table 24",
+        name: "Table 24",
         category: "Party",
-        capacity: "20",
+        capacity: 20,
         status: false
     },
     {
-        name: "table 25",
+        name: "Table 25",
         category: "Party",
-        capacity: "20",
+        capacity: 20,
         status: false
     },
     {
-        name: "table 26",
+        name: "Table 26",
         category: "Party",
-        capacity: "20",
+        capacity: 20,
         status: false
     },
     {
-        name: "table 27",
+        name: "Table 27",
         category: "Party",
-        capacity: "30",
+        capacity: 30,
         status: false
     },
     {
-        name: "table 28",
+        name: "Table 28",
         category: "Party",
-        capacity: "30",
+        capacity: 30,
         status: false
     }
 ]
