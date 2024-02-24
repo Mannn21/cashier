@@ -1,4 +1,4 @@
-import { mdiViewDashboardOutline, mdiBasketOutline, mdiHistory, mdiPackageVariantClosed, mdiAccountOutline } from '@mdi/js';
+import { mdiViewDashboardOutline, mdiBasketOutline, mdiHistory, mdiPackageVariantClosed, mdiAccountOutline, mdiRoomServiceOutline } from '@mdi/js';
 
 export const sidebarData = [
     {
@@ -20,6 +20,11 @@ export const sidebarData = [
         title: "Inventory",
         path: "/dashboard/inventory",
         icon: mdiPackageVariantClosed
+    },
+    {
+        title: "Tables",
+        path: "/dashboard/tables",
+        icon: mdiRoomServiceOutline
     },
     {
         title: "Profile",
