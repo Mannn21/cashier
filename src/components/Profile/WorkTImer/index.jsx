@@ -39,7 +39,7 @@ const TodayGraphic = () => {
   };
 
   return (
-    <div className="w-full h-auto p-3 bg-color-primer rounded-md shadow-xl">
+    <div className="w-[300px] h-auto p-3 bg-color-primer rounded-md shadow-xl">
       <div className="w-full h-full flex flex-col justify-center items-center gap-3">
         <div className="w-full h-[200px] flex justify-center items-center">
           <WorkTimerPieChart data={data} />
