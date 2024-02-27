@@ -40,7 +40,8 @@ export const POST = async req => {
     const details = formData.get('details');
     const discount = formData.get('discount');
     const image = formData.get('image');
-    if(!image || !name || !price || !stock || ! details || !discount) {
+    const category = formData.get('category')
+    if(!image || !name || !price || !stock || ! details || !discount || !category) {
         return NextResponse.json(
             {message: "Harap lengkapi input data"},
             {status: 400, statusText: "Bad Request"}
@@ -57,7 +58,7 @@ export const POST = async req => {
             if(downloadURL !== "" || downloadURL !== undefined) {
                 const docRef = doc(db, "drinks", id)
                 await setDoc(docRef, {
-                    name, price, stock, details, discount, image_URI: downloadURL, image_name: `drink_${id}`
+                    name, price, stock, details, discount, category, image_URI: downloadURL, image_name: `drink_${id}`
                 })
                 return NextResponse.json(
                     { message: "Berhasil menambah data minuman"},

@@ -3,7 +3,6 @@ import { doc, setDoc, getDocs, query, collection, where } from "firebase/firesto
 import { ref, getDownloadURL, uploadBytes,  } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid"
 import { db, storage } from "@/app/firebase"
-import { giveCurrentDateTime } from "@/utils/currentDate";
 
 export const GET = async req => {
     try {
@@ -41,7 +40,8 @@ export const POST = async req => {
     const stock = formData.get('stock');
     const details = formData.get('details');
     const discount = formData.get('discount');
-    if(!image || !name || !price || !stock || ! details || !discount) {
+    const category = formData.get('category')
+    if(!image || !name || !price || !stock || ! details || !discount || !category) {
         return NextResponse.json(
             {message: "Harap lengkapi input data"},
             {status: 400, statusText: "Bad Request"}
@@ -52,14 +52,13 @@ export const POST = async req => {
         const foodQuery = query(collection(db, "foods"), where("name", "==", name))
         const searchFood = await getDocs(foodQuery)
         if(searchFood.empty) {
-                const dateTime = giveCurrentDateTime();
                 const storageRef = ref(storage, `images/foods/food_${id}`);
                 const snapshot = await uploadBytes(storageRef, image);
                 const downloadURL = await getDownloadURL(snapshot.ref);
             if(downloadURL !== "" || downloadURL !== undefined) {
                 const docRef = doc(db, "foods", id)
                 await setDoc(docRef, {
-                    name, price, stock, details, discount, image_URI: downloadURL, image_name: `food_${id}`
+                    name, price, stock, details, discount, category, image_URI: downloadURL, image_name: `food_${id}`
                 })
                 return NextResponse.json(
                     { message: "Berhasil menambah data makanan"},
