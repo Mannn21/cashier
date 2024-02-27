@@ -36,14 +36,9 @@ const AreaCharts = () => (
 			height={400}
 			data={data}
 			margin={{ top: 40, right: 30, left: 0, bottom: 0 }}>
-			<CartesianGrid vertical={false} strokeOpacity={0.2} />
-			<XAxis dataKey="name" tickLine={false} />
-			<YAxis
-				orientation="left"
-				axisLine={false}
-				tickFormatter={formatYAxis}
-				tickLine={false}
-			/>
+			<CartesianGrid strokeDasharray="3 3" />
+			<XAxis dataKey="name" />
+			<YAxis />
 			<Tooltip />
 			<Area
 				type="monotone"

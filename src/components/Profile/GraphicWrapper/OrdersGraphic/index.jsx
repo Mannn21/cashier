@@ -6,31 +6,38 @@ import { BarChart, Bar, Rectangle, XAxis, YAxis, Tooltip, ResponsiveContainer } 
 const data = [
   {
     name: 'Sun',
-    orders: 200,
+    myOrders: 212,
+    totalOrders: 522
   },
   {
     name: 'Mon',
-    orders: 500,
+    myOrders: 582,
+    totalOrders: 1043
   },
   {
     name: 'Tue',
-    orders: 150,
+    myOrders: 153,
+    totalOrders: 973
   },
   {
     name: 'Wed',
-    orders: 185,
+    myOrders: 185,
+    totalOrders: 884
   },
   {
     name: 'Thu',
-    orders: 370,
+    myOrders: 373,
+    totalOrders:1129
   },
   {
     name: 'Fri',
-    orders: 464,
+    myOrders: 412,
+    totalOrders: 1264
   },
   {
     name: 'Sat',
-    orders: 540,
+    myOrders: 536,
+    totalOrders: 1343
   },
 ];
 
@@ -51,7 +58,8 @@ const OrderGraphic = () => {
         <XAxis dataKey="name"  />
         <YAxis />
         <Tooltip />
-        <Bar dataKey="orders" fill="#4169E1" activeBar={<Rectangle fill="#2E417A" stroke="#2E417A" />} />
+        <Bar dataKey="myOrders" fill="#4169E1" activeBar={<Rectangle fill="#2E417A" stroke="#2E417A" />} />
+        <Bar dataKey="totalOrders" fill="#3CB371" activeBar={<Rectangle fill="#2C8A6F" stroke="#2C8A6F" />} />
       </BarChart>
     </ResponsiveContainer>
   );

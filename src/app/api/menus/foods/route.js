@@ -3,7 +3,7 @@ import { doc, setDoc, getDocs, query, collection, where } from "firebase/firesto
 import { ref, getDownloadURL, uploadBytes,  } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid"
 import { db, storage } from "@/app/firebase"
-import { giveCurrentDateTime } from "@/lib/currentDate";
+import { giveCurrentDateTime } from "@/utils/currentDate";
 
 export const GET = async req => {
     try {

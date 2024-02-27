@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React from "react";
 import {
@@ -12,13 +12,13 @@ import {
 } from "recharts";
 
 const data = [
-	{ name: "Sun", income: 5340, tax: 2400 },
-	{ name: "Mon", income: 3400, tax: 1320 },
-	{ name: "Tue", income: 4500, tax: 9800 },
-	{ name: "Wed", income: 2780, tax: 3908 },
-	{ name: "Thu", income: 7890, tax: 4800 },
-	{ name: "Fri", income: 2390, tax: 8800 },
-	{ name: "Sat", income: 3490, tax: 4300 },
+	{ name: "Sun", works: 493, target: 480 },
+	{ name: "Mon", works: 501, target: 480 },
+	{ name: "Tue", works: 483, target: 480 },
+	{ name: "Wed", works: 511, target: 480 },
+	{ name: "Thu", works: 472, target: 480 },
+	{ name: "Fri", works: 488, target: 480 },
+	{ name: "Sat", works: 528, target: 480 },
 ];
 
 const formatYAxis = value => {
@@ -28,7 +28,6 @@ const formatYAxis = value => {
 	return value;
 };
 
-
 const WorksGraphic = () => (
 	<ResponsiveContainer width="100%" height="90%">
 		<AreaChart
@@ -36,28 +35,16 @@ const WorksGraphic = () => (
 			height={400}
 			data={data}
 			margin={{ top: 20, right: 15, left: -20, bottom: 0 }}>
-			<CartesianGrid vertical={false} strokeOpacity={0.2} />
-			<XAxis dataKey="name" tickLine={false} />
-			<YAxis
-				orientation="left"
-				axisLine={false}
-				tickFormatter={formatYAxis}
-				tickLine={false}
-			/>
+			<CartesianGrid strokeDasharray="3 3" />
+			<XAxis dataKey="name" />
+			<YAxis />
 			<Tooltip />
 			<Area
 				type="monotone"
-				dataKey="income"
+				dataKey="works"
 				stackId="1"
-				stroke="#4169E1"
-				fill="#3c5dc0b5"
-			/>
-			<Area
-				type="monotone"
-				dataKey="tax"
-				stackId="1"
-				stroke="#3CB371"
-				fill="#3b9664b2"
+				stroke="##F9769D"
+				fill="#F9769D"
 			/>
 		</AreaChart>
 	</ResponsiveContainer>

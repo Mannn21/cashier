@@ -51,7 +51,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 8. Ramen => Gambar oleh <a href="https://pixabay.com/id/users/p750010-961602/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=765706">KoKai Chang</a> dari <a href="https://pixabay.com/id//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=765706">Pixabay</a>
 
-9. Ikan => Gambar oleh <a href="https://pixabay.com/id/users/jida_2555-12270347/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=4388141">jida_2555</a> dari <a href="https://pixabay.com/id//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=4388141">Pixabay</a>
+9. Ikan => Gambar oleh <a href="https://pixabay.com/id/users/mp1746-3022388/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=2796910">Mogens Petersen</a> dari <a href="https://pixabay.com/id//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=2796910">Pixabay</a>
 
 10. Nasi => Gambar oleh <a href="https://pixabay.com/id/users/spencerwing-4260422/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=2907724">Spencer Wing</a> dari <a href="https://pixabay.com/id//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=2907724">Pixabay</a>
 
