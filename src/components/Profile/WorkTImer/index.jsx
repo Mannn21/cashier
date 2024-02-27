@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from 'react';
-import WorkTimerPieChart from '../Graphics/PieGraphic';
+import WorkTimerPieChart from '../PieGraphics/WorkTimerPieChart';
 
 const TodayGraphic = () => {
   const [count, setCount] = useState(0);
@@ -41,7 +41,7 @@ const TodayGraphic = () => {
   return (
     <div className="w-auto h-auto p-3 bg-color-primer rounded-md shadow-xl">
       <div className="w-full h-full flex flex-col justify-center items-center gap-3">
-        <div className="w-[200px] h-[200px] flex justify-center items-center">
+        <div className="w-[250px] h-[200px] flex justify-center items-center">
           <WorkTimerPieChart data={data} />
         </div>
         <div className="w-full h-auto flex justify-center items-center">
