@@ -11,8 +11,8 @@ const WorkTimerPieChart = ({ data }) => {
           dataKey="value"
           cx="50%"
           cy="50%"
-          outerRadius={80}
-          innerRadius={50}
+          outerRadius={98}
+          innerRadius={60}
           fill="rgba(5, 5, 5, 0.301)"
           stroke='none'
         >
