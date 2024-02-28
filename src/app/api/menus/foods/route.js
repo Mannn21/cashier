@@ -12,8 +12,8 @@ export const GET = async req => {
             getAllFoods.forEach(doc => {
                 const id = doc.id
                 const data = doc.data();
-                const { name, price, stock, details, image, discount } = data
-                responseData.push({id, name, price, stock, details, image, discount})
+                const { name, price, stock, details, discount, image_URI, image_name, category } = data
+                responseData.push({id, name, price, stock, details, discount, url: image_URI, imageName: image_name, category})
             })
             return NextResponse.json(
                 {message: responseData},
