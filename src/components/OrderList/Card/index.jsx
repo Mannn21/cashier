@@ -5,8 +5,8 @@ const Card = ({data}) => {
 		<div className="h-auto m-2 p-3 flex flex-col gap-2 rounded-md shadow-xl bg-color-primer">
 			<div className="w-full h-[180px] object-contain rounded-md overflow-hidden">
 				<Image
-					src={data.url}
-					alt={data.imageName}
+					src={data.image_URI}
+					alt={data.image_name}
 					width={300}
 					height={300}
 					className="object-cover w-full h-full"
