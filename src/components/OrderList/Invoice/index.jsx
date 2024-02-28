@@ -1,6 +1,18 @@
+"use client"
+
+import { useSelector } from "react-redux";
 import InvoiceCard from "./InvoiceCard";
+import { getAllCarts } from "@/features/cart/cartSlice";
 
 const Invoice = () => {
+    const carts = useSelector(getAllCarts);
+    const {orders} = carts;
+    const formatToRupiah = angka => {
+		const rupiah = angka?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		return `Rp. ${rupiah}`;
+	}
+
+    
     return (
         <div className="w-full h-auto">
             <div className="w-full h-auto flex flex-col gap-1 justify-start items-center">
@@ -8,9 +20,11 @@ const Invoice = () => {
                     <h2 className="text-lg font-semibold tracking-wide">Pesanan</h2>
                 </div>
                 <div className="w-full h-auto flex flex-col gap-1 justify-start items-center">
-                    <InvoiceCard />
-                    <InvoiceCard />
-                    <InvoiceCard />
+                    {
+                        orders.map(data => {
+                            return <InvoiceCard key={data.id} data={data} />
+                        })
+                    }
                 </div>
                 <div className="w-full h-auto flex flex-col gap-1 mt-4">
                     <div className="w-full h-auto text-center">
@@ -19,19 +33,35 @@ const Invoice = () => {
                     <div className="w-full h-auto flex flex-col gap-1">
                         <div className="w-full h-auto flex flex-row justify-between items-center p-1">
                             <h4>Sub Total</h4>
-                            <span>Rp 200.000</span>
+                            <span>
+                                {
+                                    carts.total_price < 1 ? "Rp. 0" : formatToRupiah(carts.total_price)
+                                }
+                            </span>
                         </div>
                         <div className="w-full h-auto flex flex-row justify-between items-center p-1">
                             <h4>Tax</h4>
-                            <span>Rp 5.000</span>
+                            <span>
+                                {
+                                    carts.total_items < 1 ? "Rp. 0" : formatToRupiah(carts.total_items * 150)
+                                }
+                            </span>
                         </div>
                         <div className="w-full h-auto flex flex-row justify-between items-center p-1">
                             <h4>Discount</h4>
-                            <span>Rp 30.000</span>
+                            <span>
+                                {
+                                    carts.total_discount < 1 ? "Rp. 0" : formatToRupiah(carts.total_discount)
+                                }
+                            </span>
                         </div>
                         <div className="w-full h-auto flex flex-row justify-between items-center p-1">
                             <h4>Total</h4>
-                            <span>Rp 225.000</span>
+                            <span>
+                                {
+                                    carts.total_orders < 1 ? "Rp. 0" : formatToRupiah(carts.total_orders)
+                                }
+                            </span>
                         </div>
                     </div>
                     <div className="w-full h-auto flex justify-center items-center">

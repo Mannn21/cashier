@@ -1,12 +1,17 @@
 import Image from "next/image";
 
-const InvoiceCard = () => {
+const InvoiceCard = ({data}) => {
+	const formatToRupiah = angka => {
+		const rupiah = angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		return `Rp. ${rupiah}`;
+	}
+	
 	return (
-		<div className="w-full h-[90px] p-1 bg-color-primary">
+		<div className="w-full h-[100px] p-1 bg-color-primary">
 			<div className="w-full h-full flex flex-row gap-2">
-				<div className="w-[90px] h-full object-contain rounded-md overflow-hidden">
+				<div className="w-[100px] h-full object-contain rounded-md overflow-hidden">
 					<Image
-						src="https://placehold.jp/200x200.png"
+						src={data.image_URI}
 						alt="image"
 						width={200}
 						height={200}
@@ -15,10 +20,14 @@ const InvoiceCard = () => {
 				</div>
 				<div className="w-[calc(100% - 94px)] h-full flex flex-row justify-between items-center">
 					<div className="w-full h-full flex flex-col justify-around items-start">
-						<h2 className="text-lg font-semibold tracking-wide">Nasi Goreng</h2>
-						<span className="text-sm font-medium tracking-wide">
-							Rp 20.000 x 2
-						</span>
+						<h2 className="text-lg font-semibold tracking-wide">{data.name}</h2>
+						<div className="w-full h-auto flex flex-row justify-between items-center">
+							<span className="text-sm font-medium tracking-wide">
+								{formatToRupiah(data.price)} x {data.quantity}
+							</span>
+							<span className="text-sm font-medium tracking-wide text-color-accent">{data.discount}%</span>
+						</div>
+						<span className="text-sm font-medium tracking-wide">{formatToRupiah(data.totalPrice)}</span>
 						<span className="text-sm font-normal tracking-wide text-color-tersier3">
 							Tidak Pakai Sayuran
 						</span>

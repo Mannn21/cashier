@@ -1,6 +1,16 @@
+"use client"
+
 import Image from "next/image";
+import { useDispatch } from "react-redux";
+import { addToCart } from "@/features/cart/cartSlice";
 
 const Card = ({data}) => {
+	const dispatch = useDispatch()
+
+	const handleAddCart = () => {
+		dispatch(addToCart(data))
+	}
+	
 	return (
 		<div className="h-auto m-2 p-3 flex flex-col gap-2 rounded-md shadow-xl bg-color-primer">
 			<div className="w-full h-[180px] object-contain rounded-md overflow-hidden">
@@ -22,6 +32,7 @@ const Card = ({data}) => {
 				<span>Stock: {data.stock}</span>
 				<button
 					type="button"
+					onClick={handleAddCart}
 					className="px-6 py-1 rounded-full bg-color-secondary1 text-color-primer text-base font-medium tracking-wide hover:bg-color-secondary1hover transition-all duration-300 ease-in-out">
 					Order
 				</button>
