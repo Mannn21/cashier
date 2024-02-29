@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
 	addToCart,
 	getAllCarts,
-	removeToCart,
+	removeFromCart,
 } from "@/features/cart/cartSlice";
 import { formatToRupiah } from "@/utils/formatToRupiah";
 
@@ -54,7 +54,7 @@ const Card = ({ data }) => {
 	};
 
 	const handleRemoveCart = () => {
-		dispatch(removeToCart(data));
+		dispatch(removeFromCart(data));
 	};
 
 	return (

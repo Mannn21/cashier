@@ -1,41 +1,37 @@
+"use client";
+
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Card from "../Card";
+import { setMenus, getAllMenus } from "@/features/menus/menusSlice";
+import { getFilterCategory } from "@/features/filter/filterSlice";
 
-async function getFoods() {
-	const res = await fetch("http://localhost:3000/api/menus/foods", {
-		method: "GET",
-		cache: "no-store",
-	});
-	return res.json();
-}
+const CardList = ({ foods, drinks }) => {
+	const dispatch = useDispatch();
+	const allMenus = useSelector(getAllMenus);
+	const category = useSelector(getFilterCategory);
 
-async function getDrinks() {
-	const res = await fetch("http://localhost:3000/api/menus/drinks", {
-		method: "GET",
-		cache: "no-store",
-	});
-	return res.json();
-}
+	useEffect(() => {
+		const menus = [];
+		foods.map(data => {
+			menus.push(data);
+		});
+		drinks.map(data => {
+			menus.push(data);
+		});
 
-const CardList = async () => {
-    const menus = []
-	const foodsResponse = await getFoods();
-	const drinksResponse = await getDrinks();
-
-	const foods = foodsResponse.message;
-	const drinks = drinksResponse.message;
-
-    foods.map(data => {
-        menus.push(data)
-    })
-    drinks.map(data => {
-        menus.push(data)
-    })
+		dispatch(setMenus(menus));
+	}, [dispatch, drinks, foods]);
 
 	return (
 		<div className="grid grid-cols-3 gap-3">
-			{menus.map(data => {
-				return <Card key={data.id} data={data} />;
-			})}
+			{category === "all menus"
+				? allMenus.map(data => <Card key={data.id} data={data} />)
+				: allMenus.map(data =>
+						data.category === category ? (
+							<Card key={data.id} data={data} />
+						) : null
+				  )}
 		</div>
 	);
 };

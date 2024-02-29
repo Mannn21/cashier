@@ -3,14 +3,14 @@
 import { useDispatch, useSelector } from "react-redux"
 import Icon from "@mdi/react";
 import { navbarData } from "@/data/navbarData";
-import { setFilterId, getFilterId } from "@/features/filter/filterSlice"
+import { setFilterCategory, getFilterCategory } from "@/features/filter/filterSlice"
 
 const Navbar = () => {
 	const dispatch = useDispatch()
-	const id = useSelector(getFilterId)
+	const category = useSelector(getFilterCategory)
 
-	const handleId = id => {
-		dispatch(setFilterId(id))
+	const handleCategory = data => {
+		dispatch(setFilterCategory(data))
 	}
 	
 	return (
@@ -20,8 +20,8 @@ const Navbar = () => {
 					return (
 						<div
 							key={index}
-							className={`px-3 py-1 flex flex-row justify-center items-center gap-1 cursor-pointer rounded-full hover:text-color-primer hover:bg-color-secondary1 ease-in-out duration-300 transition-all ${id === data.id ? "text-color-primer bg-color-secondary1" : "text-color-tersier3"}`}
-							onClick={() => handleId(data.id)}
+							className={`px-3 py-1 flex flex-row justify-center items-center gap-1 cursor-pointer rounded-full hover:text-color-primer hover:bg-color-secondary1 ease-in-out duration-300 transition-all ${category === data.category ? "text-color-primer bg-color-secondary1" : "text-color-tersier3"}`}
+							onClick={() => handleCategory(data.category)}
 							>
 							<div>
 								<Icon path={data.icon} size={0.95} />
