@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
-    category: "all menus"
+    category: "all menus",
+    keyword: ""
 }
 
 export const filterSlice = createSlice({
@@ -12,13 +13,15 @@ export const filterSlice = createSlice({
             const {payload} = action;
             state.category = payload;
         },
-        setFilterSearch: (state, action) => {
+        setFilterKeyword: (state, action) => {
             const {payload} = action;
+            state.keyword = payload;
         }
     }
 })
 
-export const { setFilterCategory } = filterSlice.actions;
+export const { setFilterCategory, setFilterKeyword } = filterSlice.actions;
 export const getFilterCategory = state => state.filter.category;
+export const getFilterKeyword = state => state.filter.keyword;
 
 export default filterSlice;

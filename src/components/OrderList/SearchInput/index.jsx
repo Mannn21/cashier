@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { useDispatch } from "react-redux";
 import Icon from "@mdi/react";
 import { mdiMagnify } from "@mdi/js";
+import { setFilterKeyword } from "@/features/filter/filterSlice";
 
 const SearchInput = () => {
     const searchRef = useRef();
@@ -11,7 +12,7 @@ const SearchInput = () => {
 
     const handleSearch = () => {
         const keyword = searchRef.current.value;
-        
+		dispatch(setFilterKeyword(keyword))
     }
     
 	return (
