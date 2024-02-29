@@ -13,7 +13,9 @@ export default function RootLayout({ children }) {
 	return (
 		<html lang="en">
 			<body className={montserrat.className} suppressHydrationWarning={true}>
-				<ReduxProvider>{children}</ReduxProvider>
+				<ReduxProvider>
+					<div id="modal">{children}</div>
+				</ReduxProvider>
 			</body>
 		</html>
 	);
