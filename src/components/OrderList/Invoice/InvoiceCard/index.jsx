@@ -1,13 +1,11 @@
 import Image from "next/image";
+import Icon from '@mdi/react';
+import { mdiClose } from '@mdi/js';
+import { formatToRupiah } from "@/utils/formatToRupiah";
 
 const InvoiceCard = ({data}) => {
-	const formatToRupiah = angka => {
-		const rupiah = angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-		return `Rp. ${rupiah}`;
-	}
-	
 	return (
-		<div className="w-full h-[100px] p-1 bg-color-primary">
+		<div className="w-full h-[100px] p-1 bg-color-primary relative">
 			<div className="w-full h-full flex flex-row gap-2">
 				<div className="w-[100px] h-full object-contain rounded-md overflow-hidden">
 					<Image
@@ -33,6 +31,9 @@ const InvoiceCard = ({data}) => {
 						</span>
 					</div>
 				</div>
+			</div>
+			<div className="w-auto h-auto p-2 flex justify-center items-center border rounded-full cursor-pointer text-color-primer bg-color-accent transition-all duration-300 ease-in-out hover:bg-color-accentHover absolute -top-1 left-0">
+				<Icon path={mdiClose} size={0.7} />
 			</div>
 		</div>
 	);
