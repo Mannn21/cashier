@@ -8,10 +8,9 @@ import EmptyInvoice from "./EmptyInvoice";
 import { getAllCarts } from "@/features/cart/cartSlice";
 import { formatToRupiah } from "@/utils/formatToRupiah";
 import CartModal from "@/features/cart/CartModal";
-// import Modal from "@/components/Modal";
 
 const Invoice = () => {
-	const [isOpenModal, setIsOpenModal] = useState(false)
+	const [isOpenCartModal, setIsOpenCartModal] = useState(false)
 	const [portalElement, setPortalElement] = useState(null)
 	const carts = useSelector(getAllCarts);
 	const { orders } = carts;
@@ -20,8 +19,8 @@ const Invoice = () => {
         setPortalElement(document.getElementById("modal"));
     }, []);
 
-	const handleModal = () => {
-		setIsOpenModal(!isOpenModal)
+	const handleCartModal = () => {
+		setIsOpenCartModal(!isOpenCartModal)
 	}
 
 	return (
@@ -90,15 +89,14 @@ const Invoice = () => {
 					<div className="w-full h-auto flex justify-center items-center">
 						<button
 							type="button"
-							onClick={handleModal}
+							onClick={handleCartModal}
 							className="px-4 py-2 text-base font-medium text-color-primer bg-color-secondary1 cursor-pointer rounded-xl hover:bg-color-secondary1hover transition-all ease-in-out duration-300">
 							Bayar
 						</button>
 					</div>
 				</div>
 			</div>
-			{isOpenModal ? createPortal(<CartModal />, portalElement): null}
-			{/* {isOpenModal ? <CartModal /> : null} */}
+			{isOpenCartModal ? createPortal(<CartModal handleCartModal={handleCartModal} />, portalElement): null}
 		</div>
 	);
 };

@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { deleteFromCart } from "@/features/cart/cartSlice";
 import Icon from '@mdi/react';
 import { mdiClose } from '@mdi/js';
