@@ -1,9 +1,32 @@
+"use client";
+
+import { useEffect } from "react";
 import Image from "next/image";
+import { useDispatch, useSelector } from "react-redux";
 import Icon from "@mdi/react";
 import { mdiPencilOutline, mdiDeleteOutline } from "@mdi/js";
-import { simulationInventoryData } from "@/data/simulationInventoryData";
+import {
+	getAllInventoriesData,
+	setInventoryData,
+} from "@/features/inventory/inventorySlice";
+import { formatToRupiah } from "@/utils/formatToRupiah";
 
-const InventoryTable = () => {
+const InventoryTable = ({ foods, drinks }) => {
+	const dispatch = useDispatch();
+	const inventories = useSelector(getAllInventoriesData);
+
+	useEffect(() => {
+		const menus = [];
+		foods.map(data => {
+			menus.push(data);
+		});
+		drinks.map(data => {
+			menus.push(data);
+		});
+
+		dispatch(setInventoryData(menus));
+	}, [foods, drinks, dispatch]);
+
 	return (
 		<div className="w-full h-auto">
 			<table className="w-full h-auto">
@@ -21,24 +44,28 @@ const InventoryTable = () => {
 					</tr>
 				</thead>
 				<tbody>
-					{simulationInventoryData?.map((data, index) => {
+					{inventories?.map((data, index) => {
 						return (
 							<tr key={index}>
-								<td>{index + 1}</td>
-								<td>
-									<Image
-										src={data.image_url}
-										alt={data.name}
-										width={100}
-										height={100}
-										className="m-auto"
-									/>
+								<td className="text-base font-semibold text-color-dark">{index + 1}</td>
+								<td className="flex justify-center items-center">
+									<div className="w-[150px] h-[120px] overflow-hidden rounded-md flex justify-center items-center">
+										<div className="relative w-full h-full">
+											<Image
+												src={data.image_URI}
+												alt={data.name}
+												layout="fill"
+												objectFit="cover"
+												className="object-center object-cover"
+											/>
+										</div>
+									</div>
 								</td>
-								<td>{data.name}</td>
-								<td>{data.category}</td>
-								<td>{data.price}</td>
-								<td>{data.discount}</td>
-								<td>{data.stock}</td>
+								<td className="text-base font-semibold text-color-dark">{data.name}</td>
+								<td className="text-sm text-color-dark">{data.category}</td>
+								<td className="text-sm text-color-dark">{formatToRupiah(data.price)}</td>
+								<td className="text-sm text-color-dark">{data.discount}%</td>
+								<td className="text-sm text-color-dark">{data.stock}</td>
 								<td className="text-color-secondary2">
 									<Icon
 										path={mdiPencilOutline}

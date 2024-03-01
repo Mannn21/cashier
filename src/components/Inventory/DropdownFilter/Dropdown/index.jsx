@@ -1,6 +1,6 @@
 const Dropdown = () => {
 	return (
-		<div className="w-[250px] h-auto p-2 dropdown">
+		<div className="w-[250px] h-auto p-2 dropdown bg-color-primer">
 			<div className="w-full h-auto p-2">
 				<div className="w-full h-auto flex flex-col gap-2 justify-start items-center">
 					<div className="w-full h-auto text-center">

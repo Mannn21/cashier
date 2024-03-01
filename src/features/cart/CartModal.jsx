@@ -12,7 +12,7 @@ import FooterModal from "@/components/Modal/FooterModal";
 const CartModal = ({ handleCartModal }) => {
 	const [isOpenPaymentModal, setIsOpenPaymentModal] = useState(false);
 	const carts = useSelector(getAllCarts);
-	const { orders } = carts;
+	const { orders, total_discount, total_items, total_price, total_orders } = carts;
 
 	const handlePaymentModal = () => {
 		setIsOpenPaymentModal(!isOpenPaymentModal);
@@ -27,7 +27,7 @@ const CartModal = ({ handleCartModal }) => {
 						{isOpenPaymentModal ? (
 							<PaymentModal />
 						) : (
-							<ReviewModal orders={orders} />
+							<ReviewModal orders={orders} totalDiscount={total_discount} totalItems={total_items} totalPrice={total_price} totalOrders={total_orders} />
 						)}
 					</div>
 					<FooterModal

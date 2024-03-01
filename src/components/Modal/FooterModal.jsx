@@ -1,6 +1,6 @@
 const FooterModal = ({handleCartModal, handlePaymentModal}) => {
 	return (
-		<div className="w-full h-auto flex flex-row gap-4 justify-center items-center">
+		<div className="w-full h-auto flex flex-row gap-4 justify-center items-center pt-3">
 			<button
 				type="button"
 				onClick={handleCartModal}
