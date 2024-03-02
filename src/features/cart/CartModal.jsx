@@ -1,23 +1,14 @@
 "use client";
 
-import { useState } from "react";
 import { useSelector } from "react-redux";
+import { getPaymentModalState } from "../modal/modalSlice";
 import Modal from "@/components/Modal/Modal";
-import { getAllCarts } from "./cartSlice";
 import ReviewModal from "@/components/Modal/ReviewModal";
 import PaymentModal from "../payment/PaymentModal";
 import HeaderModal from "@/components/Modal/HeaderModal";
-import FooterModal from "@/components/Modal/FooterModal";
 
-const CartModal = ({ handleCartModal }) => {
-	const [isOpenPaymentModal, setIsOpenPaymentModal] = useState(false);
-	const carts = useSelector(getAllCarts);
-	const { orders, total_discount, total_items, total_price, total_orders } = carts;
-
-	const handlePaymentModal = () => {
-		setIsOpenPaymentModal(!isOpenPaymentModal);
-	};
-
+const CartModal = () => {
+	const isOpenPaymentModal = useSelector(getPaymentModalState)
 	return (
 		<Modal>
 			<div className="w-full h-full bg-color-primer rounded-md p-3">
@@ -27,13 +18,9 @@ const CartModal = ({ handleCartModal }) => {
 						{isOpenPaymentModal ? (
 							<PaymentModal />
 						) : (
-							<ReviewModal orders={orders} totalDiscount={total_discount} totalItems={total_items} totalPrice={total_price} totalOrders={total_orders} />
+							<ReviewModal />
 						)}
 					</div>
-					<FooterModal
-						handleCartModal={handleCartModal}
-						handlePaymentModal={handlePaymentModal}
-					/>
 				</div>
 			</div>
 		</Modal>

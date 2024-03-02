@@ -7,13 +7,6 @@ const initialState = {
 		total_items: null,
 		total_discount: null,
 		total_orders: null,
-		// id_tables: "",
-		// name: "",
-		// date: "",
-		// status: false,
-		// time_order: "",
-		// cashier_id: "",
-		// message: "",
 	},
 };
 

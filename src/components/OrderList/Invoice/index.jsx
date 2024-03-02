@@ -2,7 +2,8 @@
 
 import { createPortal } from "react-dom";
 import {useState, useEffect} from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setModal, getModalState } from "@/features/modal/modalSlice";
 import InvoiceCard from "./InvoiceCard";
 import EmptyInvoice from "./EmptyInvoice";
 import { getAllCarts } from "@/features/cart/cartSlice";
@@ -10,8 +11,10 @@ import { formatToRupiah } from "@/utils/formatToRupiah";
 import CartModal from "@/features/cart/CartModal";
 
 const Invoice = () => {
-	const [isOpenCartModal, setIsOpenCartModal] = useState(false)
 	const [portalElement, setPortalElement] = useState(null)
+	const dispatch = useDispatch();
+	const isOpenModal = useSelector(getModalState);
+	
 	const carts = useSelector(getAllCarts);
 	const { orders } = carts;
 
@@ -20,7 +23,7 @@ const Invoice = () => {
     }, []);
 
 	const handleCartModal = () => {
-		setIsOpenCartModal(!isOpenCartModal)
+		dispatch(setModal(true))
 	}
 
 	return (
@@ -96,7 +99,7 @@ const Invoice = () => {
 					</div>
 				</div>
 			</div>
-			{isOpenCartModal ? createPortal(<CartModal handleCartModal={handleCartModal} />, portalElement): null}
+			{isOpenModal ? createPortal(<CartModal />, portalElement): null}
 		</div>
 	);
 };

@@ -1,19 +1,19 @@
 "use client";
 
 import React, { useState } from "react";
+import FooterModal from "@/components/Modal/FooterModal";
+import { useSelector, useDispatch } from "react-redux";
+import { setOrder, getOrderData } from "../order/orderSlice";
 import { simulationTableData } from "@/data/simulationTableData";
+import { paymentDenomination } from "@/data/paymentDenomination";
 import { formatToRupiah } from "@/utils/formatToRupiah";
+import { generateTableOptions } from "@/utils/generateTableOptions";
+import { paymentAmountChange } from "@/utils/paymentAmountChange";
 
 const PaymentModal = () => {
 	const [customerCount, setCustomerCount] = useState(0);
 	const [selectedTable, setSelectedTable] = useState("");
 	const [paymentAmount, setPaymentAmount] = useState("");
-
-	const handlePaymentAmountChange = event => {
-		const rawValue = event.target.value.replace(/\D/g, "");
-		const formattedValue = formatToRupiah(parseInt(rawValue));
-		setPaymentAmount(formattedValue);
-	};
 
 	const handleCustomerCountChange = event => {
 		setCustomerCount(parseInt(event.target.value));
@@ -23,36 +23,10 @@ const PaymentModal = () => {
 		setSelectedTable(event.target.value);
 	};
 
-	const groupedTables = simulationTableData.reduce((groups, table) => {
-		if (!groups[table.category]) {
-			groups[table.category] = [];
-		}
-		groups[table.category].push(table);
-		return groups;
-	}, {});
-
-	const generateTableOptions = () => {
-		return Object.entries(groupedTables)
-		  .filter(([category, tables]) =>
-			tables.some((table) => !table.status && table.capacity >= customerCount)
-		  )
-		  .map(([category, tables]) => (
-			<optgroup key={category} label={category}>
-			  {tables
-				.filter((table) => !table.status && table.capacity >= customerCount)
-				.map((table) => (
-				  <option key={table.name} value={table.name}>
-					{table.name} ({table.capacity} kursi)
-				  </option>
-				))}
-			</optgroup>
-		  ));
-	  };
-	  
-	  
+	
 
 	return (
-		<div className="w-full h-auto bg-color-primer">
+		<div className="w-full h-auto bg-color-primer overflow-auto">
 			<div className="w-full h-auto flex flex-col">
 				<div className="w-full h-auto flex flex-col gap-2">
 					<label htmlFor="costumer">Nama Pelanggan</label>
@@ -83,7 +57,7 @@ const PaymentModal = () => {
 							onChange={handleTableSelection}
 							disabled={customerCount === 0}>
 							<option value="">Pilih Meja</option>
-							{generateTableOptions()}
+							{generateTableOptions(simulationTableData, customerCount)}
 						</select>
 					</div>
 				</div>
@@ -94,19 +68,26 @@ const PaymentModal = () => {
 							type="teks"
 							placeholder="Masukkan pecahan pembayaran..."
 							value={paymentAmount}
-							onChange={handlePaymentAmountChange}
+							onChange={() => setPaymentAmount(paymentAmountChange())}
 							className="w-full h-auto text-sm font-medium text-color-tersier3 tracking-wide border-none outline-none focus:border-none focus:outline-none"
 						/>
 					</div>
 					<div className="w-full h-auto grid grid-cols-3 gap-3">
-						<button>Rp. 10,000</button>
-						<button>Rp. 20,000</button>
-						<button>Rp. 50,000</button>
-						<button>Rp. 100,000</button>
-						<button>Rp. 200,000</button>
-						<button>Rp. 500,000</button>
+						{paymentDenomination.map((current, index) => {
+							return (
+								<button
+									key={index}
+									className="w-auto h-auto p-1 border rounded-md bg-color-primer hover:bg-color-secondary1 hover:text-color-primer duration-300 ease-in-out transition-all"
+									onClick={() => setPaymentAmount(formatToRupiah(current))}>
+									{formatToRupiah(current)}
+								</button>
+							);
+						})}
 					</div>
 				</div>
+			</div>
+			<div className="w-full h-auto">
+				<FooterModal />
 			</div>
 		</div>
 	);
