@@ -53,9 +53,9 @@ const Invoice = () => {
 								Sub Total
 							</h4>
 							<span className="text-base font-medium tracking-wide">
-								{carts.total_price < 1
+								{carts.total_orders < 1
 									? "Rp. 0"
-									: formatToRupiah(carts.total_price)}
+									: formatToRupiah(carts.total_orders)}
 							</span>
 						</div>
 						<div className="w-full h-auto flex flex-row justify-between items-center p-1">
@@ -83,9 +83,9 @@ const Invoice = () => {
 								Total
 							</h4>
 							<span className="text-base font-medium tracking-wide">
-								{carts.total_orders < 1
+								{carts.total_price < 1
 									? "Rp. 0"
-									: formatToRupiah(carts.total_orders)}
+									: formatToRupiah(carts.total_price)}
 							</span>
 						</div>
 					</div>

@@ -12,60 +12,60 @@ import { db } from "@/app/firebase";
 import { currentTime } from "@/utils/currentTime";
 
 export const GET = async req => {
-    try {
-        const getAllOrderLists = await getDocs(collection(db, "order_lists"));
-        const isDataEmpty = getAllOrderLists.empty;
+	try {
+		const getAllOrderLists = await getDocs(collection(db, "order_lists"));
+		const isDataEmpty = getAllOrderLists.empty;
 
-        if (!isDataEmpty) {
-            let responseData = [];
-            for (const order of getAllOrderLists.docs) {
-                const data = order.data();
+		if (!isDataEmpty) {
+			let responseData = [];
+			for (const order of getAllOrderLists.docs) {
+				const data = order.data();
 
-                const cashierRef = doc(db, "employees", data.cashier_id);
-                const cashierDoc = await getDoc(cashierRef);
-                const cashierData = cashierDoc.data();
+				const cashierRef = doc(db, "employees", data.cashier_id);
+				const cashierDoc = await getDoc(cashierRef);
+				const cashierData = cashierDoc.data();
 
-                const tableRef = doc(db, "tables", data.table_id);
-                const tableDoc = await getDoc(tableRef);
-                const tableData = tableDoc.data();
+				const tableRef = doc(db, "tables", data.table_id);
+				const tableDoc = await getDoc(tableRef);
+				const tableData = tableDoc.data();
 
-                responseData.push({
-                    id: order.id,
-                    orders: data.orders,
-                    tableCategory: tableData.category,
-                    tableStatus: tableData.status,
-                    customerName: data.customer_name,
-                    dateOrder: data.date,
-                    timeOrder: data.order_time,
-                    timeFinish: data.finish_time,
-                    cashierName: cashierData.name,
-                    totalPrice: data.total_price,
-                    totalItem: data.total_item,
-                    totalDiscount: data.total_discount,
-                    totalPayment: data.total_payment,
-                    status: data.status,
-                    totalReturn: data.total_return,
-                });
-            }
-			console.log(responseData)
-            return NextResponse.json(
-                { message: responseData },
-                { status: 200, statusText: "Ok" }
-            );
-        }
+				responseData.push({
+					id: order.id,
+					orders: data.orders,
+					tableCategory: tableData.category,
+					tableStatus: tableData.status,
+					customerName: data.customer_name,
+					dateOrder: data.date,
+					timeOrder: data.order_time,
+					timeFinish: data.finish_time,
+					cashierName: cashierData.name,
+					totalPrice: data.total_price,
+					totalItem: data.total_item,
+					totalDiscount: data.total_discount,
+					totalPayment: data.total_payment,
+					totalOrder: data.total_orders,
+					status: data.status,
+					totalReturn: data.total_return,
+				});
+			}
+			console.log(responseData);
+			return NextResponse.json(
+				{ message: responseData },
+				{ status: 200, statusText: "Ok" }
+			);
+		}
 
-        return NextResponse.json(
-            { message: "Data pesanan tidak tersedia" },
-            { status: 404, statusText: "Not Found" }
-        );
-    } catch (error) {
-        return NextResponse.json(
-            { message: "Kesalahan pada server" },
-            { status: 500, statusText: "Internal Server Error" }
-        );
-    }
+		return NextResponse.json(
+			{ message: "Data pesanan tidak tersedia" },
+			{ status: 404, statusText: "Not Found" }
+		);
+	} catch (error) {
+		return NextResponse.json(
+			{ message: "Kesalahan pada server" },
+			{ status: 500, statusText: "Internal Server Error" }
+		);
+	}
 };
-
 
 export const POST = async req => {
 	const {
@@ -76,6 +76,7 @@ export const POST = async req => {
 		cashier_id,
 		total_price,
 		total_item,
+		total_orders,
 		total_discount,
 		total_payment,
 	} = await req.json();
@@ -88,6 +89,7 @@ export const POST = async req => {
 		total_item < 1 ||
 		total_payment < 0 ||
 		total_discount < 0 ||
+		total_orders < 0 ||
 		total_price < 0
 	) {
 		return NextResponse.json(
@@ -126,7 +128,9 @@ export const POST = async req => {
 		}
 		let validation = true;
 		let message = "";
+		// MASALAHNYA GAK SESUAI DI ARRAY ORDERS
 		for (const order of orders) {
+			console.log("MASUK");
 			const {
 				id,
 				name,
@@ -136,6 +140,15 @@ export const POST = async req => {
 				quantity,
 				total_price,
 			} = order;
+			console.log({
+				id,
+				name,
+				category,
+				price_order,
+				discount_order,
+				quantity,
+				total_price,
+			});
 			const productRef = doc(db, category, id);
 			const searchProduct = await getDoc(productRef);
 			const { price, stock, discount } = searchProduct.data();
@@ -185,6 +198,7 @@ export const POST = async req => {
 			);
 		}
 		const time = currentTime();
+		// MASALAHNYA GAK SESUAI DI ARRAY ORDERS
 		for (const order of orders) {
 			const {
 				id,
@@ -223,6 +237,7 @@ export const POST = async req => {
 			total_price,
 			total_item,
 			total_discount,
+			total_orders,
 			total_payment,
 			status: false,
 			total_return,

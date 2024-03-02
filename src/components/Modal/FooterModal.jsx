@@ -2,21 +2,30 @@
 
 import {useDispatch, useSelector} from "react-redux";
 import { setModal, setPaymentModal, getPaymentModalState } from "@/features/modal/modalSlice";
+import { postOrderData } from "@/services/postOrderData";
 
-const FooterModal = () => {
+const FooterModal = ({data = null}) => {
 	const dispatch = useDispatch();
 	const paymentModalState = useSelector(getPaymentModalState)
 	
 	const handleModalState = () => {
 		dispatch(setModal(false))
 	}
+
+	const fetchData = async () => {
+		const res = await postOrderData(data)
+		// const response = await res.json();
+		console.log(res)
+	}
+
+	console.log(data)
 	
 	const handlePaymentModal = () => {
 		if(!paymentModalState) {
 			dispatch(setPaymentModal(true))
 		}
 		else {
-			console.log("Check Out")
+			fetchData()			
 			dispatch(setModal(false))
 		}
 	}

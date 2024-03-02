@@ -8,11 +8,11 @@ const CardTable = ({data}) => {
     let icon;
     if(!data.status) status = "Tersedia"
     if(data.status) status = "Sedang Digunakan"
-    if(data.category === "Personal") icon = mdiAccount;
-    if(data.category === "Couple") icon = mdiAccountSupervisor;
-    if(data.category === "Family") icon = mdiAccountGroup;
-    if(data.category === "Private") icon = mdiAccountTie;
-    if(data.category === "Party") icon = mdiPartyPopper;
+    if(data.category === "personal") icon = mdiAccount;
+    if(data.category === "couple") icon = mdiAccountSupervisor;
+    if(data.category === "family") icon = mdiAccountGroup;
+    if(data.category === "private") icon = mdiAccountTie;
+    if(data.category === "party") icon = mdiPartyPopper;
     return (
         <div className={`w-full h-auto rounded-md shadow-xl bg-color-primer border-2 ${!data.status ? "border-color-secondary1" : "border-color-accent"}`}>
             <div className="w-full h-auto relative px-2 pt-3 pb-6 flex flex-col justify-center items-center">

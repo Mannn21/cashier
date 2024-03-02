@@ -1,19 +1,36 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FooterModal from "@/components/Modal/FooterModal";
 import { useSelector, useDispatch } from "react-redux";
+import { getAllCarts } from "../cart/cartSlice";
 import { setOrder, getOrderData } from "../order/orderSlice";
-import { simulationTableData } from "@/data/simulationTableData";
 import { paymentDenomination } from "@/data/paymentDenomination";
 import { formatToRupiah } from "@/utils/formatToRupiah";
 import { generateTableOptions } from "@/utils/generateTableOptions";
 import { paymentAmountChange } from "@/utils/paymentAmountChange";
+import { currentTime } from "@/utils/currentTime";
+import { giveCurrentDateTime } from "@/utils/currentDate";
 
 const PaymentModal = () => {
+	const [customerName, setCustomerName] = useState("");
 	const [customerCount, setCustomerCount] = useState(0);
+	const [selectedTableOptions, setSelectedTableOptions] = useState([]);
 	const [selectedTable, setSelectedTable] = useState("");
-	const [paymentAmount, setPaymentAmount] = useState("");
+	const [paymentValue, setPaymentValue] = useState(null);
+
+	const cartData = useSelector(getAllCarts);
+	const { orders, total_discount, total_items, total_orders, total_price } =
+		cartData;
+
+	useEffect(() => {
+		async function fetchData() {
+			const options = await generateTableOptions(customerCount);
+			setSelectedTableOptions(options);
+			setSelectedTable(options[0]?.props?.children[0]?.props?.value);
+		}
+		fetchData();
+	}, [customerCount]);
 
 	const handleCustomerCountChange = event => {
 		setCustomerCount(parseInt(event.target.value));
@@ -23,7 +40,24 @@ const PaymentModal = () => {
 		setSelectedTable(event.target.value);
 	};
 
-	
+	const handleCustomerName = e => {
+		setCustomerName(e.target.value);
+	};
+
+
+	const data = {
+		orders,
+		table_id: selectedTable,
+		customer_name: customerName,
+		date: giveCurrentDateTime(),
+		order_time: currentTime(),
+		cashier_id: "e84b8704-b2e5-4c77-af49-ad6ec3239f29",
+		total_price,
+		total_orders,
+		total_item: total_items,
+		total_discount,
+		total_payment: paymentValue,
+	};
 
 	return (
 		<div className="w-full h-auto bg-color-primer overflow-auto">
@@ -33,6 +67,7 @@ const PaymentModal = () => {
 					<div className="w-full h-auto px-2 py-1 border rounded-md hover:border-color-secondary1 focus:border-color-secondary1hover">
 						<input
 							type="text"
+							onChange={handleCustomerName}
 							placeholder="Masukkan nama pelanggan..."
 							className="w-full h-auto text-sm font-medium text-color-tersier3 tracking-wide border-none outline-none focus:border-none focus:outline-none"
 						/>
@@ -57,7 +92,7 @@ const PaymentModal = () => {
 							onChange={handleTableSelection}
 							disabled={customerCount === 0}>
 							<option value="">Pilih Meja</option>
-							{generateTableOptions(simulationTableData, customerCount)}
+							{selectedTableOptions}
 						</select>
 					</div>
 				</div>
@@ -65,10 +100,12 @@ const PaymentModal = () => {
 					<label htmlFor="payment">Masukkan pecahan pembayaran</label>
 					<div className="w-full h-auto px-2 py-1 border rounded-md hover:border-color-secondary1 focus:border-color-secondary1hover">
 						<input
-							type="teks"
+							type="text"
 							placeholder="Masukkan pecahan pembayaran..."
-							value={paymentAmount}
-							onChange={() => setPaymentAmount(paymentAmountChange())}
+							value={paymentValue}
+							onChange={e => {
+								setPaymentValue(e.target.value);
+							}}
 							className="w-full h-auto text-sm font-medium text-color-tersier3 tracking-wide border-none outline-none focus:border-none focus:outline-none"
 						/>
 					</div>
@@ -78,7 +115,9 @@ const PaymentModal = () => {
 								<button
 									key={index}
 									className="w-auto h-auto p-1 border rounded-md bg-color-primer hover:bg-color-secondary1 hover:text-color-primer duration-300 ease-in-out transition-all"
-									onClick={() => setPaymentAmount(formatToRupiah(current))}>
+									onClick={() => {
+										setPaymentValue(current);
+									}}>
 									{formatToRupiah(current)}
 								</button>
 							);
@@ -87,7 +126,7 @@ const PaymentModal = () => {
 				</div>
 			</div>
 			<div className="w-full h-auto">
-				<FooterModal />
+				<FooterModal data={data} />
 			</div>
 		</div>
 	);

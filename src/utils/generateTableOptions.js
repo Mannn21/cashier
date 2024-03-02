@@ -1,5 +1,10 @@
-export const generateTableOptions = (tables, customerCount) => {
-	const groupedTables = tables.reduce((groups, table) => {
+import { getTables } from "@/services/getTableDatas";
+
+export async function generateTableOptions(customerCount) {
+	const response = await getTables();
+	const tables = response.message;
+	
+	const groupedTables = await tables?.reduce((groups, table) => {
 		if (!groups[table.category]) {
 			groups[table.category] = [];
 		}
@@ -15,7 +20,7 @@ export const generateTableOptions = (tables, customerCount) => {
 				{tables
 					.filter(table => !table.status && table.capacity >= customerCount)
 					.map(table => (
-						<option key={table.name} value={table.name}>
+						<option key={table.name} value={table.id}>
 							{table.name} ({table.capacity} kursi)
 						</option>
 					))}

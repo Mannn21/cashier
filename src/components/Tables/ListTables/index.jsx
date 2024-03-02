@@ -1,12 +1,15 @@
 import CardTable from "../CardTable"
-import { simulationTableData } from "@/data/simulationTableData"
+import { sortDatas } from "@/utils/sortDatas"
 
-const ListTables = () => {
+const ListTables = ({tables}) => {
+    const sortTables = sortDatas(tables)
+    console.log(sortTables)
+    
     return (
         <div className="w-full h-auto py-2">
             <div className="grid grid-cols-4 gap-x-8 gap-y-10">
                 {
-                    simulationTableData.map((data, index) => {
+                    sortTables?.map((data, index) => {
                         return (
                             <div key={index}>
                                 <CardTable data={data} />

@@ -29,21 +29,21 @@ export const cartSlice = createSlice({
 					quantity: 1,
 					totalPrice: payload.price - (payload.discount / 100) * payload.price,
 				});
-				state.data.total_price +=
+				state.data.total_orders +=
 					payload.price - (payload.discount / 100) * payload.price;
 				state.data.total_items += 1;
 				state.data.total_discount += (payload.discount / 100) * payload.price;
-				state.data.total_orders +=
+				state.data.total_price +=
 					payload.price - (payload.discount / 100) * payload.price + 150;
 			} else {
 				state.data.orders[isMenusExists].quantity += 1;
 				state.data.orders[isMenusExists].totalPrice =
 					(payload.price - (payload.discount / 100) * payload.price) *
 					state.data.orders[isMenusExists].quantity;
-				state.data.total_price +=
+				state.data.total_orders +=
 					payload.price - (payload.discount / 100) * payload.price;
 				state.data.total_discount += (payload.discount / 100) * payload.price;
-				state.data.total_orders +=
+				state.data.total_price +=
 					payload.price - (payload.discount / 100) * payload.price + 150;
 				state.data.total_items += 1;
 			}
@@ -59,10 +59,10 @@ export const cartSlice = createSlice({
 					(payload.price - (payload.discount / 100) * payload.price) *
 					state.data.orders[isMenusExists].quantity;
 				state.data.total_items -= 1;
-				state.data.total_price -=
+				state.data.total_orders -=
 					payload.price - (payload.discount / 100) * payload.price;
 				state.data.total_discount -= (payload.discount / 100) * payload.price;
-				state.data.total_orders -=
+				state.data.total_price -=
 					payload.price - (payload.discount / 100) * payload.price + 150;
 			}
 			if (state.data.orders[isMenusExists].quantity < 1) {
@@ -79,10 +79,10 @@ export const cartSlice = createSlice({
 				(payload.discount / 100) *
 				payload.price *
 				state.data.orders[isMenusExists].quantity;
-			state.data.total_price -=
+			state.data.total_orders -=
 				(payload.price - (payload.discount / 100) * payload.price) *
 				state.data.orders[isMenusExists].quantity;
-			state.data.total_orders -=
+			state.data.total_price -=
 				((payload.price - (payload.discount / 100) * payload.price) + 150) *
 				state.data.orders[isMenusExists].quantity;
 			state.data.orders.splice(isMenusExists, 1);

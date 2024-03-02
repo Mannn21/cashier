@@ -62,10 +62,10 @@ const ReviewModal = () => {
 					</tr>
 					<tr>
 						<td colSpan="5" className="text-right text-base font-semibold">
-							Total harga:{" "}
+							Total order:{" "}
 						</td>
 						<td className="text-right font-semibold text-base text-color-dark">
-							{formatToRupiah(total_price)}
+							{formatToRupiah(total_orders)}
 						</td>
 					</tr>
 					<tr>
@@ -78,10 +78,10 @@ const ReviewModal = () => {
 					</tr>
 					<tr>
 						<td colSpan="5" className="text-right text-base font-semibold">
-							Total order:{" "}
+							Total harga:{" "}
 						</td>
 						<td className="text-right font-semibold text-base text-color-dark">
-							{formatToRupiah(total_orders)}
+							{formatToRupiah(total_price)}
 						</td>
 					</tr>
 				</tbody>

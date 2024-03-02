@@ -34,7 +34,7 @@ export const GET = async req => {
 
 export const POST = async req => {
     const { name, status, capacity, category } = await req.json();
-    if(!name || !status || !capacity || !category) {
+    if(!name || !capacity || !category) {
         return NextResponse.json(
             {message: "Mohon lengkapi data input"},
             {status: 400, statusText: "Bad Request"}
