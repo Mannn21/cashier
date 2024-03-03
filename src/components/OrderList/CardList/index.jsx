@@ -9,8 +9,9 @@ import {
 	getFilterCategory,
 	getFilterKeyword,
 } from "@/features/filter/filterSlice";
+import { getMenus } from "@/services/getMenuDatas";
 
-const CardList = ({ foods, drinks }) => {
+const CardList = () => {
 	const [filteredMenus, setFilteredMenus] = useState([]);
 	const dispatch = useDispatch();
 	const allMenus = useSelector(getAllMenus);
@@ -18,16 +19,12 @@ const CardList = ({ foods, drinks }) => {
 	const keyword = useSelector(getFilterKeyword);
 
 	useEffect(() => {
-		const menus = [];
-		foods.map(data => {
-			menus.push(data);
-		});
-		drinks.map(data => {
-			menus.push(data);
-		});
-
-		dispatch(setMenus(menus));
-	}, [dispatch, drinks, foods]);
+		const response = async () => {
+			const menus = await getMenus();
+			dispatch(setMenus(menus));
+		}
+		response()
+	}, [dispatch]);
 
 	useEffect(() => {
 		const filteredData = allMenus.filter(menu => {

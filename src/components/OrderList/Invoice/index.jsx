@@ -25,6 +25,8 @@ const Invoice = () => {
 	const handleCartModal = () => {
 		dispatch(setModal(true))
 	}
+	
+	// console.log({carts})
 
 	return (
 		<div className="w-full h-auto">

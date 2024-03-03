@@ -75,25 +75,26 @@ export const cartSlice = createSlice({
 			const isMenusExists = state.data.orders.findIndex(
 				menu => menu.id === payload.id
 			);
+			console.log({payload})
 			state.data.total_items -= state.data.orders[isMenusExists].quantity;
 			state.data.total_discount -=
-				(payload.discount / 100) *
-				payload.price *
+				(payload.discount_order / 100) *
+				payload.price_order *
 				state.data.orders[isMenusExists].quantity;
 			state.data.total_orders -=
-				(payload.price - (payload.discount / 100) * payload.price) *
+				(payload.price_order - (payload.discount_order / 100) * payload.price_order) *
 				state.data.orders[isMenusExists].quantity;
 			state.data.total_price -=
-				(payload.price - (payload.discount / 100) * payload.price + 150) *
+				(payload.price_order - (payload.discount_order / 100) * payload.price_order + 150) *
 				state.data.orders[isMenusExists].quantity;
 			state.data.orders.splice(isMenusExists, 1);
 		},
 		clearCart: (state, action) => {
 			state.data.orders = [];
-			state.data.total_price = null;
-			state.data.total_items = null;
-			state.data.total_discount = null;
-			state.data.total_orders = null;
+			state.data.total_price = 0;
+			state.data.total_items = 0;
+			state.data.total_discount = 0;
+			state.data.total_orders = 0;
 		},
 	},
 });

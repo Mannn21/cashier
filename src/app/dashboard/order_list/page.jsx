@@ -2,15 +2,8 @@ import SearchInput from "@/components/OrderList/SearchInput";
 import CardList from "@/components/OrderList/CardList";
 import Navbar from "@/components/OrderList/Navbar";
 import Invoice from "@/components/OrderList/Invoice";
-import { getFoods, getDrinks } from "@/services/getMenuDatas";
 
 export default async function OrderList() {
-	const foodsResponse = await getFoods();
-	const drinksResponse = await getDrinks();
-
-	const foods = foodsResponse.message;
-	const drinks = drinksResponse.message;
-
     
 	return (
 		<div className="w-full h-full p-1">
@@ -24,7 +17,7 @@ export default async function OrderList() {
 						<Navbar />
 					</div>
 					<div>
-						<CardList foods={foods} drinks={drinks} />
+						<CardList />
 					</div>
 				</div>
                 <div className="w-1/4 h-full">

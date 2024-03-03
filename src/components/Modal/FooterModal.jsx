@@ -1,14 +1,16 @@
 "use client";
 
 import { useDispatch, useSelector } from "react-redux";
+import Swal from "sweetalert2";
 import {
 	setModal,
 	setPaymentModal,
 	getPaymentModalState,
 } from "@/features/modal/modalSlice";
+import { setMenus } from "@/features/menus/menusSlice";
 import { clearCart } from "@/features/cart/cartSlice";
 import { postOrderData } from "@/services/postOrderData";
-import Swal from "sweetalert2";
+import { getMenus } from "@/services/getMenuDatas";
 
 const FooterModal = ({ data = null }) => {
 	const dispatch = useDispatch();
@@ -17,6 +19,11 @@ const FooterModal = ({ data = null }) => {
 	const handleModalState = () => {
 		dispatch(setModal(false));
 	};
+
+	const handleMenus = async () => {
+		const menus = await getMenus();
+		dispatch(setMenus(menus));
+	} 
 
 	const handlePostOrder = async () => {
 		Swal.fire({
@@ -33,6 +40,7 @@ const FooterModal = ({ data = null }) => {
 			if (response.status === "Ok") {
 				dispatch(setModal(false));
 				dispatch(clearCart())
+				handleMenus();
 				Swal.fire({
 					icon: "success",
 					timer: 2000,
