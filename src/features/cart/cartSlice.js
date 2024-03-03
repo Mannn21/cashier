@@ -84,14 +84,21 @@ export const cartSlice = createSlice({
 				(payload.price - (payload.discount / 100) * payload.price) *
 				state.data.orders[isMenusExists].quantity;
 			state.data.total_price -=
-				((payload.price - (payload.discount / 100) * payload.price) + 150) *
+				(payload.price - (payload.discount / 100) * payload.price + 150) *
 				state.data.orders[isMenusExists].quantity;
 			state.data.orders.splice(isMenusExists, 1);
+		},
+		clearCart: (state, action) => {
+			state.data.orders = [];
+			state.data.total_price = null;
+			state.data.total_items = null;
+			state.data.total_discount = null;
+			state.data.total_orders = null;
 		},
 	},
 });
 
-export const { addToCart, removeFromCart, deleteFromCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, deleteFromCart, clearCart } = cartSlice.actions;
 export const getAllCarts = state => state.cart.data;
 
 export default cartSlice;

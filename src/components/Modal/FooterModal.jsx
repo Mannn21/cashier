@@ -1,33 +1,69 @@
-"use client"
+"use client";
 
-import {useDispatch, useSelector} from "react-redux";
-import { setModal, setPaymentModal, getPaymentModalState } from "@/features/modal/modalSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+	setModal,
+	setPaymentModal,
+	getPaymentModalState,
+} from "@/features/modal/modalSlice";
+import { clearCart } from "@/features/cart/cartSlice";
 import { postOrderData } from "@/services/postOrderData";
+import Swal from "sweetalert2";
 
-const FooterModal = ({data = null}) => {
+const FooterModal = ({ data = null }) => {
 	const dispatch = useDispatch();
-	const paymentModalState = useSelector(getPaymentModalState)
-	
+	const paymentModalState = useSelector(getPaymentModalState);
+
 	const handleModalState = () => {
-		dispatch(setModal(false))
-	}
+		dispatch(setModal(false));
+	};
 
-	const fetchData = async () => {
-		const res = await postOrderData(data)
-		console.log(res)
-	}
+	const handlePostOrder = async () => {
+		Swal.fire({
+			title: "Menunggu",
+			text: "Sedang memproses pesanan...",
+			allowOutsideClick: false,
+			didOpen: () => {
+				Swal.showLoading();
+			},
+		});
 
-	
+		try {
+			const response = await postOrderData(data);
+			if (response.status === "Ok") {
+				dispatch(setModal(false));
+				dispatch(clearCart())
+				Swal.fire({
+					icon: "success",
+					timer: 2000,
+					timerProgressBar: true,
+					title: "Sukses!",
+					text: response.message,
+				});
+			} else {
+				Swal.fire({
+					icon: "error",
+					title: "Oops...",
+					text: "Ada kesalahan saat memproses pesanan.",
+				});
+			}
+		} catch (error) {
+			Swal.fire({
+				icon: "error",
+				title: "Oops...",
+				text: "Terjadi kesalahan saat memposting pesanan.",
+			});
+		}
+	};
+
 	const handlePaymentModal = () => {
-		if(!paymentModalState) {
-			dispatch(setPaymentModal(true))
+		if (!paymentModalState) {
+			dispatch(setPaymentModal(true));
+		} else {
+			handlePostOrder();
 		}
-		else {
-			fetchData()			
-			dispatch(setModal(false))
-		}
-	}
-	
+	};
+
 	return (
 		<div className="w-full h-auto flex flex-row gap-4 justify-center items-center pt-3">
 			<button

@@ -233,6 +233,7 @@ export const POST = async req => {
 		return NextResponse.json(
 			{
 				message: `Pesanan berhasil dibuat, total kembalian adalah Rp.${total_return}`,
+				status: "Ok"
 			},
 			{ status: 201, statusText: "Created" }
 		);
