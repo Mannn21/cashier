@@ -23,11 +23,12 @@ export const cartSlice = createSlice({
 				state.data.orders.push({
 					id: payload.id,
 					name: payload.name,
-					price: payload.price,
-					discount: payload.discount,
+					price_order: payload.price,
+					discount_order: payload.discount,
 					image_URI: payload.image_URI,
 					quantity: 1,
-					totalPrice: payload.price - (payload.discount / 100) * payload.price,
+					category: payload.category,
+					total_price: payload.price - (payload.discount / 100) * payload.price,
 				});
 				state.data.total_orders +=
 					payload.price - (payload.discount / 100) * payload.price;
@@ -37,7 +38,7 @@ export const cartSlice = createSlice({
 					payload.price - (payload.discount / 100) * payload.price + 150;
 			} else {
 				state.data.orders[isMenusExists].quantity += 1;
-				state.data.orders[isMenusExists].totalPrice =
+				state.data.orders[isMenusExists].total_price =
 					(payload.price - (payload.discount / 100) * payload.price) *
 					state.data.orders[isMenusExists].quantity;
 				state.data.total_orders +=
@@ -55,7 +56,7 @@ export const cartSlice = createSlice({
 			);
 			if (state.data.orders[isMenusExists].quantity >= 1) {
 				state.data.orders[isMenusExists].quantity -= 1;
-				state.data.orders[isMenusExists].totalPrice =
+				state.data.orders[isMenusExists].total_price =
 					(payload.price - (payload.discount / 100) * payload.price) *
 					state.data.orders[isMenusExists].quantity;
 				state.data.total_items -= 1;

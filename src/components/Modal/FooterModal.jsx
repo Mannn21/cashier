@@ -14,11 +14,9 @@ const FooterModal = ({data = null}) => {
 
 	const fetchData = async () => {
 		const res = await postOrderData(data)
-		// const response = await res.json();
 		console.log(res)
 	}
 
-	console.log(data)
 	
 	const handlePaymentModal = () => {
 		if(!paymentModalState) {

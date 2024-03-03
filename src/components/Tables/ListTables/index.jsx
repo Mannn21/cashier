@@ -3,7 +3,6 @@ import { sortDatas } from "@/utils/sortDatas"
 
 const ListTables = ({tables}) => {
     const sortTables = sortDatas(tables)
-    console.log(sortTables)
     
     return (
         <div className="w-full h-auto py-2">

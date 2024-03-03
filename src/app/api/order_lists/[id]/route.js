@@ -78,7 +78,6 @@ export const PUT = async (req, {params}) => {
             })
             const data = searchOrder.data()
             const cashier = searchCashier.data()
-            console.log(data)
             const table = searchTable.data()
             const historyRef = doc(db, "history", searchOrder.id);
             await setDoc(historyRef, {

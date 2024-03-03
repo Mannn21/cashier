@@ -49,6 +49,7 @@ const Card = ({ data }) => {
 		setIsInCart(isInCart);
 	}, [carts.orders, data.id]);
 
+
 	const handleAddCart = () => {
 		dispatch(addToCart(data));
 	};

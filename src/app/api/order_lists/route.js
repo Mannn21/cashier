@@ -48,7 +48,6 @@ export const GET = async req => {
 					totalReturn: data.total_return,
 				});
 			}
-			console.log(responseData);
 			return NextResponse.json(
 				{ message: responseData },
 				{ status: 200, statusText: "Ok" }
@@ -128,9 +127,7 @@ export const POST = async req => {
 		}
 		let validation = true;
 		let message = "";
-		// MASALAHNYA GAK SESUAI DI ARRAY ORDERS
 		for (const order of orders) {
-			console.log("MASUK");
 			const {
 				id,
 				name,
@@ -140,15 +137,6 @@ export const POST = async req => {
 				quantity,
 				total_price,
 			} = order;
-			console.log({
-				id,
-				name,
-				category,
-				price_order,
-				discount_order,
-				quantity,
-				total_price,
-			});
 			const productRef = doc(db, category, id);
 			const searchProduct = await getDoc(productRef);
 			const { price, stock, discount } = searchProduct.data();
@@ -190,7 +178,7 @@ export const POST = async req => {
 			const priceBeforeDiscount = total_price + discountAmount;
 			totalPriceBeforeDiscount += priceBeforeDiscount;
 		}
-		const finalPrice = totalPriceBeforeDiscount - totalDiscount;
+		const finalPrice = (totalPriceBeforeDiscount - totalDiscount) + (total_item * 150) 
 		if (totalDiscount !== total_discount || total_price !== finalPrice) {
 			return NextResponse.json(
 				{ message: "Total harga pesanan tidak sesuai" },

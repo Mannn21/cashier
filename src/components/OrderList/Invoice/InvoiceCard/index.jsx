@@ -31,11 +31,11 @@ const InvoiceCard = ({data}) => {
 						<h2 className="text-lg font-semibold tracking-wide">{data.name}</h2>
 						<div className="w-full h-auto flex flex-row justify-between items-center">
 							<span className="text-sm font-medium tracking-wide">
-								{formatToRupiah(data.price)} x {data.quantity}
+								{formatToRupiah(data.price_order)} x {data.quantity}
 							</span>
-							<span className="text-sm font-medium tracking-wide text-color-accent">{data.discount}%</span>
+							<span className="text-sm font-medium tracking-wide text-color-accent">{data.total_discount}%</span>
 						</div>
-						<span className="text-sm font-medium tracking-wide">{formatToRupiah(data.totalPrice)}</span>
+						<span className="text-sm font-medium tracking-wide">{formatToRupiah(data.total_price)}</span>
 						<span className="text-sm font-normal tracking-wide text-color-tersier3">
 							Tidak Pakai Sayuran
 						</span>

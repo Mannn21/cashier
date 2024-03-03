@@ -32,10 +32,10 @@ const ReviewModal = () => {
 									{index + 1}
 								</td>
 								<td>{data.name}</td>
-								<td>{formatToRupiah(data.price)}</td>
-								<td>{data.discount}%</td>
+								<td>{formatToRupiah(data.price_order)}</td>
+								<td>{data.discount_order}%</td>
 								<td>{data.quantity}</td>
-								<td>{formatToRupiah(data.totalPrice)}</td>
+								<td>{formatToRupiah(data.total_price)}</td>
 							</tr>
 						);
 					})}
