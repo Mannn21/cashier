@@ -10,22 +10,19 @@ import {
 	setInventoryData,
 } from "@/features/inventory/inventorySlice";
 import { formatToRupiah } from "@/utils/formatToRupiah";
+import { getMenus } from "@/services/getMenuDatas";
 
-const InventoryTable = ({ foods, drinks }) => {
+const InventoryTable = () => {
 	const dispatch = useDispatch();
 	const inventories = useSelector(getAllInventoriesData);
 
 	useEffect(() => {
-		const menus = [];
-		foods.map(data => {
-			menus.push(data);
-		});
-		drinks.map(data => {
-			menus.push(data);
-		});
-
-		dispatch(setInventoryData(menus));
-	}, [foods, drinks, dispatch]);
+		const response = async () => {
+			const menus = await getMenus();
+			dispatch(setInventoryData(menus));
+		};
+		response();
+	}, [dispatch]);
 
 	return (
 		<div className="w-full h-auto">
@@ -47,7 +44,9 @@ const InventoryTable = ({ foods, drinks }) => {
 					{inventories?.map((data, index) => {
 						return (
 							<tr key={index}>
-								<td className="text-base font-semibold text-color-dark">{index + 1}</td>
+								<td className="text-base font-semibold text-color-dark">
+									{index + 1}
+								</td>
 								<td className="flex justify-center items-center">
 									<div className="w-[150px] h-[120px] overflow-hidden rounded-md flex justify-center items-center">
 										<div className="relative w-full h-full">
@@ -61,9 +60,13 @@ const InventoryTable = ({ foods, drinks }) => {
 										</div>
 									</div>
 								</td>
-								<td className="text-base font-semibold text-color-dark">{data.name}</td>
+								<td className="text-base font-semibold text-color-dark">
+									{data.name}
+								</td>
 								<td className="text-sm text-color-dark">{data.category}</td>
-								<td className="text-sm text-color-dark">{formatToRupiah(data.price)}</td>
+								<td className="text-sm text-color-dark">
+									{formatToRupiah(data.price)}
+								</td>
 								<td className="text-sm text-color-dark">{data.discount}%</td>
 								<td className="text-sm text-color-dark">{data.stock}</td>
 								<td className="text-color-secondary2">
