@@ -26,6 +26,7 @@ export const GET = async (req, { params }) => {
                 id: searchOrder.id,
                 orders: data.orders,
                 tableCategory: table.category,
+                tableName: table.name,
                 customerName: data.customer_name,
                 dateOrder: data.date,
                 timeOrder: data.order_time,
@@ -79,10 +80,15 @@ export const PUT = async (req, {params}) => {
             const data = searchOrder.data()
             const cashier = searchCashier.data()
             const table = searchTable.data()
+            await updateDoc(tableRef, {
+                status: false
+            })
             const historyRef = doc(db, "history", searchOrder.id);
+            await deleteDoc(orderRef);
             await setDoc(historyRef, {
                 orders: data.orders,
                 table_category: table.category,
+                table_name: table.name,
                 customer_name: data.customer_name,
                 date_order: data.date,
                 time_order: data.order_time,
@@ -96,7 +102,7 @@ export const PUT = async (req, {params}) => {
                 total_return: data.total_return
             })
             return NextResponse.json(
-                {message: "Pesanan telah dihidangkan"},
+                {message: "Pesanan telah dihidangkan", status: "Ok"},
                 {status: 200, statusText: "Ok"}
             )
         }

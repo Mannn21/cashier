@@ -33,7 +33,7 @@ export const GET = async req => {
 					id: order.id,
 					orders: data.orders,
 					tableCategory: tableData.category,
-					tableStatus: tableData.status,
+					tableName: tableData.name,
 					customerName: data.customer_name,
 					dateOrder: data.date,
 					timeOrder: data.order_time,
