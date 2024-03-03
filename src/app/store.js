@@ -6,6 +6,8 @@ import tableSlice from "@/features/table/tableSlice"
 import menusSlice from "@/features/menus/menusSlice"
 import orderSlice from "@/features/order/orderSlice"
 import modalSlice from "@/features/modal/modalSlice"
+import servingsSlice from "@/features/servings/servingsSlice"
+import historySlice from "@/features/history/historySlice"
 
 export default configureStore({
     reducer: {
@@ -15,6 +17,8 @@ export default configureStore({
         inventory: inventorySlice.reducer,
         table: tableSlice.reducer,
         order: orderSlice.reducer,
-        modal: modalSlice.reducer
+        modal: modalSlice.reducer,
+        servings: servingsSlice.reducer,
+        history: historySlice.reducer
     }
 })
