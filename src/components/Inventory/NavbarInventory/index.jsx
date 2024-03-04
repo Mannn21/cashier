@@ -1,6 +1,5 @@
-import Icon from "@mdi/react";
-import { mdiMagnify } from "@mdi/js";
 import DropdownFilter from "../DropdownFilter";
+import SearchInventory from "../SearchInventory";
 
 const NavbarInventory = () => {
 	return (
@@ -12,16 +11,7 @@ const NavbarInventory = () => {
 					</div>
 				</div>
 				<div className="w-[300px] h-auto flex flex-row justify-end items-center">
-					<div className="w-[280px] flex flex-row p-1 gap-1 rounded-md border border-color-tersier3 focus-within:border-color-secondary1 hover:border-color-secondary1hover">
-						<div className="p-1">
-							<Icon path={mdiMagnify} size={1} />
-						</div>
-						<input
-							type="text"
-							placeholder="Cari Produk...."
-							className="w-full p-1 outline-none border-none text-base text-color-tersier3 tracking-wide"
-						/>
-					</div>
+					<SearchInventory />
 				</div>
 			</div>
 		</div>

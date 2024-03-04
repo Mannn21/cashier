@@ -48,7 +48,7 @@ const NavbarTable = () => {
 						</option>
 						<option value="semua" className="text-base font-semibold my-2">Semua</option>
 						<option value="false" className="text-base font-semibold my-2">Tersedia</option>
-						<option value="true" className="text-base font-semibold my-2">Tidak Tersedia</option>
+						<option value="true" className="text-base font-semibold my-2">Sedang Digunakan</option>
 					</select>
 				</div>
 			</div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import Icon from "@mdi/react";
@@ -8,6 +8,11 @@ import { mdiPencilOutline, mdiDeleteOutline } from "@mdi/js";
 import {
 	getAllInventoriesData,
 	setInventoryData,
+	getCategoryFilterState,
+	getPriceSortState,
+	getDiscountSortState,
+	getStockSortState,
+	getKeywordState,
 } from "@/features/inventory/inventorySlice";
 import { formatToRupiah } from "@/utils/formatToRupiah";
 import { getMenus } from "@/services/getMenuDatas";
@@ -15,6 +20,11 @@ import { getMenus } from "@/services/getMenuDatas";
 const InventoryTable = () => {
 	const dispatch = useDispatch();
 	const inventories = useSelector(getAllInventoriesData);
+	const category = useSelector(getCategoryFilterState);
+	const price = useSelector(getPriceSortState);
+	const stock = useSelector(getStockSortState);
+	const discount = useSelector(getDiscountSortState);
+	const keyword = useSelector(getKeywordState);
 
 	useEffect(() => {
 		const response = async () => {
@@ -23,6 +33,40 @@ const InventoryTable = () => {
 		};
 		response();
 	}, [dispatch]);
+
+	const sortedAndFilteredData = useMemo(() => {
+		const filteredData = inventories?.filter(data => {
+			const isCategoryMatch =
+				category.toLowerCase() === "semua" ||
+				category.toLowerCase() === data.category.toLowerCase();
+			const isDatasSearch = data.name.toLowerCase().includes(keyword);
+			return isCategoryMatch && isDatasSearch;
+		});
+
+		const sortedData = filteredData?.slice().sort((a, b) => {
+			if (price === "up") {
+				if (a.price !== b.price) return a.price - b.price;
+			} else if (price === "down") {
+				if (a.price !== b.price) return b.price - a.price;
+			}
+
+			if (stock === "up") {
+				if (a.stock !== b.stock) return a.stock - b.stock;
+			} else if (stock === "down") {
+				if (a.stock !== b.stock) return b.stock - a.stock;
+			}
+
+			if (discount === "up") {
+				if (a.discount !== b.discount) return a.discount - b.discount;
+			} else if (discount === "down") {
+				if (a.discount !== b.discount) return b.discount - a.discount;
+			}
+
+			return 0;
+		});
+
+		return sortedData;
+	}, [inventories, category, keyword, price, stock, discount]);
 
 	return (
 		<div className="w-full h-auto">
@@ -41,7 +85,7 @@ const InventoryTable = () => {
 					</tr>
 				</thead>
 				<tbody>
-					{inventories?.map((data, index) => {
+					{sortedAndFilteredData?.map((data, index) => {
 						return (
 							<tr key={index}>
 								<td className="text-base font-semibold text-color-dark">

@@ -1,27 +1,33 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-	isOpen: false,
+	isCheckOutModalOpen: false,
 	paymentModal: false,
+	isAddTableModal: false
 };
 
 export const modalSlice = createSlice({
 	name: "modal",
 	initialState,
 	reducers: {
-		setModal: (state, action) => {
+		setCheckOutModalModal: (state, action) => {
 			const { payload } = action;
-			state.isOpen = payload;
+			state.isCheckOutModalOpen = payload;
 		},
 		setPaymentModal: (state, action) => {
 			const { payload } = action;
 			state.paymentModal = payload;
 		},
+		setAddTableModal: (state, action) => {
+			const { payload } = action;
+			state.isAddTableModal = payload;
+		}
 	},
 });
 
-export const { setModal, setPaymentModal } = modalSlice.actions;
-export const getModalState = state => state.modal.isOpen;
+export const { setCheckOutModalModal, setPaymentModal, setAddTableModal } = modalSlice.actions;
+export const getCheckOutModalState = state => state.modal.isCheckOutModalOpen;
 export const getPaymentModalState = state => state.modal.paymentModal;
+export const getAddTableModal = state => state.modal.isAddTableModal
 
 export default modalSlice;

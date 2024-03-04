@@ -3,7 +3,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import {
-	setModal,
+	setCheckOutModalModal,
 	setPaymentModal,
 	getPaymentModalState,
 } from "@/features/modal/modalSlice";
@@ -17,7 +17,7 @@ const FooterModal = ({ data = null }) => {
 	const paymentModalState = useSelector(getPaymentModalState);
 
 	const handleModalState = () => {
-		dispatch(setModal(false));
+		dispatch(setCheckOutModalModal(false));
 	};
 
 	const handleMenus = async () => {
@@ -38,7 +38,7 @@ const FooterModal = ({ data = null }) => {
 		try {
 			const response = await postOrderData(data);
 			if (response.status === "Ok") {
-				dispatch(setModal(false));
+				dispatch(setCheckOutModalModal(false));
 				dispatch(clearCart())
 				handleMenus();
 				Swal.fire({

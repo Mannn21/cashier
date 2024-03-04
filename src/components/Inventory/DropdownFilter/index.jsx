@@ -30,7 +30,7 @@ const DropdownFilter = () => {
 							onClick={handleFilter}>
 							<Icon path={mdiWindowClose} size={0.7} />
 						</div>
-						<Dropdown />
+						<Dropdown handleFilter={handleFilter} />
 					</div>
 				)}
 			</div>

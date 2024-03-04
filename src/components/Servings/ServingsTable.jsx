@@ -1,24 +1,40 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useCallback, useMemo } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Icon from "@mdi/react";
 import Swal from "sweetalert2";
 import { mdiDeleteOutline, mdiCheckboxMarkedCircleOutline } from "@mdi/js";
+import {
+	getKeywordState,
+	addServings,
+	getAllServings,
+} from "@/features/servings/servingsSlice";
 import { getOrder, checkOrder } from "@/services/getOrderDatas";
 import { formatToRupiah } from "@/utils/formatToRupiah";
 
 const ServingsTable = () => {
-	const [list, setList] = useState([]);
+	const dispatch = useDispatch();
+	const keyword = useSelector(getKeywordState);
+	const servings = useSelector(getAllServings);
 
-	const fetchData = async () => {
+	const fetchData = useCallback(async () => {
 		const response = await getOrder();
 		const data = response.message;
-		setList(data);
-	};
+		dispatch(addServings(data));
+	}, [dispatch]);
 
 	useEffect(() => {
 		fetchData();
-	}, []);
+	}, [fetchData]);
+
+	const searchedData = useMemo(() => {
+		return servings?.filter(data => {
+			return ["cashierName", "customerName", "tableName"].some(
+				prop => data[prop] && data[prop].toLowerCase().includes(keyword.toLowerCase())
+			);
+		});
+	}, [keyword, servings]);
 
 	const handleCheck = async id => {
 		Swal.fire({
@@ -74,7 +90,7 @@ const ServingsTable = () => {
 					</tr>
 				</thead>
 				<tbody className="w-full h-auto">
-					{list?.map((data, index) => {
+					{searchedData?.map((data, index) => {
 						return (
 							<tr key={index}>
 								<td>{index + 1}</td>
