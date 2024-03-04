@@ -3,14 +3,14 @@
 import { useDispatch, useSelector } from "react-redux";
 import Icon from "@mdi/react";
 import { navbarTableData } from "@/data/navbarTableData";
-import { setTableId, getTableId } from "@/features/table/tableSlice";
+import { setFilterTableId, getFilterTableId } from "@/features/table/tableSlice";
 
 const NavbarTable = () => {
 	const dispatch = useDispatch();
-	const id = useSelector(getTableId);
+	const id = useSelector(getFilterTableId);
 
 	const handleId = id => {
-		dispatch(setTableId(id));
+		dispatch(setFilterTableId(id));
 	};
 
 	return (

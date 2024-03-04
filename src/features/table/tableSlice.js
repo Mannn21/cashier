@@ -1,21 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
-    tableId: 1
+    data: [],
+    filterTableId: 1
 }
 
 export const tableSlice = createSlice({
     name: "table",
     initialState,
     reducers: {
-        setTableId: (state, action) => {
+        setFilterTableId: (state, action) => {
             const {payload} = action;
-            state.tableId = payload;
+            state.filterTableId = payload;
         }
     }
 })
 
-export const { setTableId } = tableSlice.actions;
-export const getTableId = state => state.table.tableId;
+export const { setFilterTableId } = tableSlice.actions;
+export const getFilterTableId = state => state.table.filterTableId;
 
 export default tableSlice;
