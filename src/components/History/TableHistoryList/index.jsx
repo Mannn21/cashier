@@ -1,22 +1,45 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
+import {useDispatch, useSelector} from "react-redux";
 import Icon from "@mdi/react";
 import { mdiPencilOutline, mdiDeleteOutline } from "@mdi/js";
 import { getHistory } from "@/services/getHistoryDatas";
+import { addHistory, getAllHistory, getDate, getKeyword } from "@/features/history/historySlice";
+import { formattedDateTime } from "@/utils/formattedDateTime";
+import { getDateOrder } from "@/utils/getDateOrder";
 
 const TableHistoryList = () => {
-	const [list, setList] = useState([]);
+	const dispatch = useDispatch();
+	const history = useSelector(getAllHistory);
+	const keyword = useSelector(getKeyword);
+	const date = useSelector(getDate)
 
-	const fetchData = async () => {
+	const fetchData = useCallback(async () => {
 		const response = await getHistory();
 		const data = response.message;
-		setList(data);
-	};
+		dispatch(addHistory(data))
+	}, [dispatch]);
 
 	useEffect(() => {
 		fetchData();
-	}, []); 
+	}, [fetchData]);
+
+	const searchedData = useMemo(() => {
+		return history?.filter(data => {
+			const searchData = ["customer_name", "cashier_name", "table_name"].some(
+				prop => data[prop] && data[prop].toLowerCase().includes(keyword.toLowerCase())
+			);
+			
+			const formattedDate = formattedDateTime(data.date_order);
+			const isDateMatch = formattedDate === date;
+	
+			return searchData || isDateMatch;
+		});
+	}, [keyword, history, date]);
+
+	console.log(date)
+	
 
 	return (
 		<div className="w-full h-auto">
@@ -36,11 +59,11 @@ const TableHistoryList = () => {
 					</tr>
 				</thead>
 				<tbody>
-					{list?.map((data, index) => {
+					{searchedData?.map((data, index) => {
 						return (
 							<tr key={index}>
 								<td>{index + 1}</td>
-								<td>{data.date_order}</td>
+								<td>{formattedDateTime(data.date_order)}</td>
 								<td>{data.cashier_name}</td>
 								<td>{data.customer_name}</td>
 								<td>{data.table_name}</td>
