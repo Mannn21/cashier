@@ -1,28 +1,33 @@
-import { mdiPartyPopper, mdiAccountSupervisor, mdiAccountGroup, mdiAccount, mdiAccountTie } from '@mdi/js';
+import { mdiPartyPopper, mdiAccountSupervisor, mdiAccountGroup, mdiStore, mdiAccount, mdiAccountTie } from '@mdi/js';
 
 export const navbarTableData = [
     {
         id: 1,
+        title: "Semua Meja",
+        icon: mdiStore
+    },
+    {
+        id: 2,
         title: "Personal",
         icon: mdiAccount
     },
     {
-        id: 2,
+        id: 3,
         title: "Couple",
         icon: mdiAccountSupervisor
     },
     {
-        id: 3,
+        id: 4,
         title: "Family",
         icon: mdiAccountGroup
     },
     {
-        id: 4,
+        id: 5,
         title: "Private",
         icon: mdiAccountTie
     },
     {
-        id: 5,
+        id: 6,
         title: "Party",
         icon: mdiPartyPopper
     },

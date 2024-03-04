@@ -1,22 +1,33 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    data: [],
-    filterTableId: 1
-}
+	data: [],
+	filterCategory: "semua meja",
+	statusTable: "semua"
+};
 
 export const tableSlice = createSlice({
-    name: "table",
-    initialState,
-    reducers: {
-        setFilterTableId: (state, action) => {
-            const {payload} = action;
-            state.filterTableId = payload;
-        }
-    }
-})
+	name: "table",
+	initialState,
+	reducers: {
+		setFilterCategory: (state, action) => {
+			const { payload } = action;
+			state.filterCategory = payload;
+		},
+		setTableDatas: (state, action) => {
+			const { payload } = action;
+			state.data = payload;
+		},
+		setStatusTable: (state, action) => {
+			const { payload } = action;
+			state.statusTable = payload;
+		}
+	},
+});
 
-export const { setFilterTableId } = tableSlice.actions;
-export const getFilterTableId = state => state.table.filterTableId;
+export const { setFilterCategory,setTableDatas, setStatusTable } = tableSlice.actions;
+export const getFilterCategory = state => state.table.filterCategory;
+export const getAllTables = state => state.table.data;
+export const getStatusTable = state => state.table.statusTable;
 
 export default tableSlice;
