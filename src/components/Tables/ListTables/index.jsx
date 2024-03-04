@@ -17,7 +17,6 @@ const ListTables = () => {
     const category = useSelector(getFilterCategory);
     const status = useSelector(getStatusTable);
     const tables = useSelector(getAllTables);
-    console.log({status})
 
     useEffect(() => {
         const fetchData = async () => {
@@ -29,20 +28,12 @@ const ListTables = () => {
     }, [dispatch]);
 
     const filteredDatas = useMemo(() => {
-        const datas = []
-        tables?.map(data => {
-            if(category.toLowerCase() === "semua meja" && status.toLowerCase() === "semua") {
-                datas.push(data)
-            }
-            if(category.toLowerCase() === data.category.toLowerCase() && status.toLowerCase() === "semua") {
-                datas.push(data)
-            }
-            if(category.toLowerCase() === data.category.toLowerCase() && status.toString() === data.status) {
-                datas.push(data)
-            }
-        })
-        return datas
-    }, [tables, category, status])
+        return tables?.filter(data => {
+            const isCategoryMatch = category.toLowerCase() === "semua meja" || category.toLowerCase() === data.category.toLowerCase();
+            const isStatusMatch = status.toLowerCase() === "semua" || status === data.status.toString();
+            return isCategoryMatch && isStatusMatch;
+        });
+    }, [tables, category, status]);
 
     return (
         <div className="w-full h-auto py-2">
