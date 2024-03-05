@@ -85,7 +85,7 @@ export const DELETE = async (req, { params }) => {
         if(searchDoc.exists()) {
             await deleteDoc(docRef);
             return NextResponse.json(
-                {message: "Data meja berhasil dihapus"},
+                {message: "Data meja berhasil dihapus", status: "Ok"},
                 {status: 200, statusText: "Ok"}
             )
         }

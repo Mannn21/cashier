@@ -38,3 +38,11 @@ export const postMenus = async (data, category) => {
 	});
 	return res.json();
 }
+
+export const deleteMenu = async (id, category) => {
+	const res = await fetch(`http://localhost:3000/api/menus/${category}/${id}`, {
+		method: "DELETE",
+		cache: "no-store",
+	});
+	return res.json();
+}

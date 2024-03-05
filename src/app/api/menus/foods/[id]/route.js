@@ -53,7 +53,7 @@ export const DELETE = async (req, { params }) => {
             if (searchDrink.exists()) {
                 await deleteDoc(foodRef);
                 return NextResponse.json(
-                    { message: "Data makanan berhasil dihapus" },
+                    { message: "Data makanan berhasil dihapus", status: "Ok" },
                     { status: 200, statusText: "Ok" }
                 );
             } else {

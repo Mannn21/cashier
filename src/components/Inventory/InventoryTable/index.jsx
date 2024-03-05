@@ -4,6 +4,7 @@ import { useEffect, useMemo } from "react";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import Icon from "@mdi/react";
+import Swal from "sweetalert2";
 import { mdiPencilOutline, mdiDeleteOutline } from "@mdi/js";
 import {
 	getAllInventoriesData,
@@ -15,7 +16,7 @@ import {
 	getKeywordState,
 } from "@/features/inventory/inventorySlice";
 import { formatToRupiah } from "@/utils/formatToRupiah";
-import { getMenus } from "@/services/menus";
+import { getMenus, deleteMenu } from "@/services/menus";
 
 const InventoryTable = () => {
 	const dispatch = useDispatch();
@@ -36,14 +37,16 @@ const InventoryTable = () => {
 
 	const sortedAndFilteredData = useMemo(() => {
 		if (typeof inventories === "string") {
-			return []; 
+			return [];
 		}
-	
+
 		const filteredData = inventories?.filter(data => {
 			const isCategoryMatch =
 				category.toLowerCase() === "semua" ||
 				category.toLowerCase() === data.category.toLowerCase();
-			const isDatasSearch = data.name.toLowerCase().includes(keyword.toLowerCase());
+			const isDatasSearch = data.name
+				.toLowerCase()
+				.includes(keyword.toLowerCase());
 			return isCategoryMatch && isDatasSearch;
 		});
 
@@ -71,6 +74,48 @@ const InventoryTable = () => {
 
 		return sortedData;
 	}, [inventories, category, keyword, price, stock, discount]);
+
+	const handleRefresh = async () => {
+		const menus = await getMenus();
+		dispatch(setInventoryData(menus));
+	};
+
+	const handleDeleteMenus = async (id, category) => {
+		Swal.fire({
+			title: "Menunggu",
+			text: "Sedang memproses pesanan...",
+			allowOutsideClick: false,
+			didOpen: () => {
+				Swal.showLoading();
+			},
+		});
+
+		try {
+			const response = await deleteMenu(id, category);
+			if (response.status === "Ok") {
+				handleRefresh();
+				Swal.fire({
+					icon: "success",
+					timer: 2000,
+					timerProgressBar: true,
+					title: "Sukses!",
+					text: response.message,
+				});
+			} else {
+				Swal.fire({
+					icon: "error",
+					title: "Oops...",
+					text: "Ada kesalahan saat memproses pesanan.",
+				});
+			}
+		} catch (error) {
+			Swal.fire({
+				icon: "error",
+				title: "Oops...",
+				text: "Terjadi kesalahan saat memposting pesanan.",
+			});
+		}
+	};
 
 	return (
 		<div className="w-full h-auto">
@@ -127,6 +172,7 @@ const InventoryTable = () => {
 								<td className="text-color-accent">
 									<Icon
 										path={mdiDeleteOutline}
+										onClick={() => handleDeleteMenus(data.id, data.category)}
 										size={1}
 										className="m-auto cursor-pointer hover:text-color-accentHover hover:rotate-12 transition-all ease-in-out duration-300"
 									/>
