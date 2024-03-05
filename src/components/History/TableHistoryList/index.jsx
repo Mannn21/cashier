@@ -30,16 +30,18 @@ const TableHistoryList = () => {
 			const searchData = ["customer_name", "cashier_name", "table_name"].some(
 				prop => data[prop] && data[prop].toLowerCase().includes(keyword.toLowerCase())
 			);
-			
-			const formattedDate = formattedDateTime(data.date_order);
+
+			if(date === "") {
+				return searchData;
+			}
+
+			const formattedDate = getDateOrder(data.date_order);
 			const isDateMatch = formattedDate === date;
 	
-			return searchData || isDateMatch;
+			return searchData && isDateMatch;
 		});
 	}, [keyword, history, date]);
 
-	console.log(date)
-	
 
 	return (
 		<div className="w-full h-auto">

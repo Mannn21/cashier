@@ -18,7 +18,7 @@ const FilterByDate = () => {
   };
 
   const onChange = (value) => {
-    dispatch(setDate(value.format('YYYY-MM-DD')));
+    dispatch(setDate(value.format('YYYY-M-D')));
   };
 
   return (

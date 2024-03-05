@@ -1,14 +1,21 @@
 "use client";
 
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setDate } from "@/features/history/historySlice";
 import Icon from "@mdi/react";
 import { mdiCalendarMonthOutline, mdiWindowClose } from "@mdi/js";
 import SearchHistory from "../SearchHistory";
 import FilterByDate from "../FilterByDate";
 
 const HistoryHeader = () => {
+	const dispatch = useDispatch();
 	const [isCalendarOpen, setCalendarOpen] = useState(false);
 
+	const handleReset = () => {
+		dispatch(setDate(""))
+	}
+	
 	const handleCalendar = () => {
 		setCalendarOpen(!isCalendarOpen);
 	};
@@ -17,7 +24,7 @@ const HistoryHeader = () => {
 		<div className="w-full h-auto p-2">
 			<div className="w-full h-auto flex flex-row justify-around items-center">
 				<div className="w-1/2 h-auto flex flex-row justify-start items-center gap-3">
-					<button className="p-2 rounded-md bg-color-secondary1 text-color-primer hover:bg-color-secondary1hover ease-in-out duration-300 transition-all">Lihat Semua</button>
+					<button type="button" onClick={() => handleReset()} className="p-2 rounded-md bg-color-secondary1 text-color-primer hover:bg-color-secondary1hover ease-in-out duration-300 transition-all">Lihat Semua</button>
 					<div className="relative">
 						{!isCalendarOpen ? (
 							<div
