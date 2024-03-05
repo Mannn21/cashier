@@ -93,16 +93,16 @@ export const POST = async req => {
 				const docRef = doc(db, "foods", id);
 				await setDoc(docRef, {
 					name,
-					price,
-					stock,
+					price: parseInt(price),
+					stock: parseInt(stock),
 					details,
-					discount,
+					discount: parseInt(discount),
 					category,
 					image_URI: downloadURL,
 					image_name: `food_${id}`,
 				});
 				return NextResponse.json(
-					{ message: "Berhasil menambah data makanan" },
+					{ message: "Berhasil menambah data makanan", status: "Ok" },
 					{ status: 201, statusText: "Created" }
 				);
 			}

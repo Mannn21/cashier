@@ -39,7 +39,7 @@ const InventoryTable = () => {
 			const isCategoryMatch =
 				category.toLowerCase() === "semua" ||
 				category.toLowerCase() === data.category.toLowerCase();
-			const isDatasSearch = data.name.toLowerCase().includes(keyword);
+			const isDatasSearch = data.name.toLowerCase().includes(keyword.toLowerCase());
 			return isCategoryMatch && isDatasSearch;
 		});
 

@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
 	isCheckOutModalOpen: false,
 	paymentModal: false,
-	isAddTableModal: false
+	isAddTableModal: false,
+	isAddInventoryModal: false
 };
 
 export const modalSlice = createSlice({
@@ -21,13 +22,18 @@ export const modalSlice = createSlice({
 		setAddTableModal: (state, action) => {
 			const { payload } = action;
 			state.isAddTableModal = payload;
+		},
+		setAddInventoryModal: (state, action) => {
+			const { payload } = action;
+			state.isAddInventoryModal = payload;
 		}
 	},
 });
 
-export const { setCheckOutModalModal, setPaymentModal, setAddTableModal } = modalSlice.actions;
+export const { setCheckOutModalModal, setPaymentModal, setAddTableModal, setAddInventoryModal } = modalSlice.actions;
 export const getCheckOutModalState = state => state.modal.isCheckOutModalOpen;
 export const getPaymentModalState = state => state.modal.paymentModal;
 export const getAddTableModal = state => state.modal.isAddTableModal
+export const getAddInventoryModal = state => state.modal.isAddInventoryModal;
 
 export default modalSlice;
