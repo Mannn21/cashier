@@ -100,7 +100,7 @@ const InventoryModal = () => {
 								</div>
 							</div>
 							<div className="w-full h-auto flex flex-col justify-start items-start gap-2">
-								<label htmlFor="name">Kategori Menu</label>
+								<label htmlFor="category">Kategori Menu</label>
 								<div className="w-full h-auto px-2 py-1 border rounded-md hover:border-color-secondary1 focus:border-color-secondary1hover">
 									<select ref={categoryRef} defaultValue="Pilih Kategori" className="w-full h-auto text-sm font-medium text-color-tersier3 tracking-wide border-none outline-none focus:border-none focus:outline-none">
 										<option value="Pilih Kategori" disabled>Pilih Kategori</option>
@@ -110,7 +110,7 @@ const InventoryModal = () => {
 								</div>
 							</div>
 							<div className="w-full h-auto flex flex-col justify-start items-start gap-2">
-								<label htmlFor="name">Harga Menu</label>
+								<label htmlFor="price">Harga Menu</label>
 								<div className="w-full h-auto px-2 py-1 border rounded-md hover:border-color-secondary1 focus:border-color-secondary1hover">
 									<input
 										type="number"
@@ -121,7 +121,7 @@ const InventoryModal = () => {
 								</div>
 							</div>
 							<div className="w-full h-auto flex flex-col justify-start items-start gap-2">
-								<label htmlFor="name">Discount Menu</label>
+								<label htmlFor="discount">Discount Menu</label>
 								<div className="w-full h-auto px-2 py-1 border rounded-md hover:border-color-secondary1 focus:border-color-secondary1hover">
 									<input
 										type="number"
@@ -132,7 +132,7 @@ const InventoryModal = () => {
 								</div>
 							</div>
 							<div className="w-full h-auto flex flex-col justify-start items-start gap-2">
-								<label htmlFor="name">Stock Menu</label>
+								<label htmlFor="stock">Stock Menu</label>
 								<div className="w-full h-auto px-2 py-1 border rounded-md hover:border-color-secondary1 focus:border-color-secondary1hover">
 									<input
 										type="number"
@@ -143,7 +143,7 @@ const InventoryModal = () => {
 								</div>
 							</div>
 							<div className="w-full h-auto flex flex-col justify-start items-start gap-2">
-								<label htmlFor="name">Detail Menu</label>
+								<label htmlFor="details">Detail Menu</label>
 								<div className="w-full h-auto px-2 py-1 border rounded-md hover:border-color-secondary1 focus:border-color-secondary1hover">
 									<input
 										type="text"

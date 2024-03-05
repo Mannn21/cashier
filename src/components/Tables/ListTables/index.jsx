@@ -18,6 +18,7 @@ const ListTables = () => {
     const status = useSelector(getStatusTable);
     const tables = useSelector(getAllTables);
 
+    
     useEffect(() => {
         const fetchData = async () => {
             const response = await getTables();
@@ -26,7 +27,7 @@ const ListTables = () => {
         };
         fetchData();
     }, [dispatch]);
-
+    
     const filteredDatas = useMemo(() => {
         return tables?.filter(data => {
             const isCategoryMatch = category.toLowerCase() === "semua meja" || category.toLowerCase() === data.category.toLowerCase();

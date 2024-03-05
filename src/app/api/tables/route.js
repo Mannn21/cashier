@@ -33,7 +33,7 @@ export const GET = async req => {
 }
 
 export const POST = async req => {
-    const { name, status, capacity, category } = await req.json();
+    const { name, capacity, category } = await req.json();
     if(!name || !capacity || !category) {
         return NextResponse.json(
             {message: "Mohon lengkapi data input"},
@@ -47,10 +47,10 @@ export const POST = async req => {
             const id = uuidv4()
             const tableRef = doc(db, "tables", id)
             await setDoc(tableRef, {
-                name, status, capacity, category
+                name, status: false, capacity, category
             })
             return NextResponse.json(
-                {message: "Data meja berhasil dibuat"},
+                {message: "Data meja berhasil dibuat", status:"Ok"},
                 {status: 201, statusText: "Created"}
             )
         }
