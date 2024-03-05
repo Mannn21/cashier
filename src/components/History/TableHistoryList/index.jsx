@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, useMemo } from "react";
 import {useDispatch, useSelector} from "react-redux";
 import Icon from "@mdi/react";
 import { mdiPencilOutline, mdiDeleteOutline } from "@mdi/js";
-import { getHistory } from "@/services/getHistoryDatas";
+import { getHistory } from "@/services/history";
 import { addHistory, getAllHistory, getDate, getKeyword } from "@/features/history/historySlice";
 import { formattedDateTime } from "@/utils/formattedDateTime";
 import { getDateOrder } from "@/utils/getDateOrder";
@@ -26,6 +26,10 @@ const TableHistoryList = () => {
 	}, [fetchData]);
 
 	const searchedData = useMemo(() => {
+		if (typeof history === "string") {
+			return [];
+		}
+	
 		return history?.filter(data => {
 			const searchData = ["customer_name", "cashier_name", "table_name"].some(
 				prop => data[prop] && data[prop].toLowerCase().includes(keyword.toLowerCase())

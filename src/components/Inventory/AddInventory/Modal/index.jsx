@@ -6,8 +6,8 @@ import { setAddInventoryModal } from "@/features/modal/modalSlice";
 import Swal from "sweetalert2";
 import Modal from "@/components/Modal/Modal";
 import InputImage from "./InputImage";
-import { postMenus } from "@/services/postMenus";
-import { getMenus } from "@/services/getMenuDatas";
+import { postMenus } from "@/services/menus";
+import { getMenus } from "@/services/menus";
 import { setInventoryData } from "@/features/inventory/inventorySlice";
 
 const InventoryModal = () => {

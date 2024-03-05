@@ -10,7 +10,7 @@ import {
 	addServings,
 	getAllServings,
 } from "@/features/servings/servingsSlice";
-import { getOrder, checkOrder } from "@/services/getOrderDatas";
+import { getOrder, checkOrder } from "@/services/orders";
 import { formatToRupiah } from "@/utils/formatToRupiah";
 
 const ServingsTable = () => {
@@ -29,11 +29,17 @@ const ServingsTable = () => {
 	}, [fetchData]);
 
 	const searchedData = useMemo(() => {
-		return servings?.filter(data => {
-			return ["cashierName", "customerName", "tableName"].some(
-				prop => data[prop] && data[prop].toLowerCase().includes(keyword.toLowerCase())
-			);
-		});
+		if (typeof servings === "string") {
+			return [];
+		} else {
+			return servings?.filter(data => {
+				return ["cashierName", "customerName", "tableName"].some(
+					prop =>
+						data[prop] &&
+						data[prop].toLowerCase().includes(keyword.toLowerCase())
+				);
+			});
+		}
 	}, [keyword, servings]);
 
 	const handleCheck = async id => {

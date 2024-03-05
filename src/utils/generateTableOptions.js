@@ -1,4 +1,4 @@
-import { getTables } from "@/services/getTableDatas";
+import { getTables } from "@/services/tables";
 
 export async function generateTableOptions(customerCount) {
 	const response = await getTables();

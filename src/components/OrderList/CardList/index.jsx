@@ -9,7 +9,7 @@ import {
 	getFilterCategory,
 	getFilterKeyword,
 } from "@/features/filter/filterSlice";
-import { getMenus } from "@/services/getMenuDatas";
+import { getMenus } from "@/services/menus";
 
 const CardList = () => {
 	const [filteredMenus, setFilteredMenus] = useState([]);

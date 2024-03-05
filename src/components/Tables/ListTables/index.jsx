@@ -9,7 +9,7 @@ import {
     getFilterCategory,
     getStatusTable
 } from "@/features/table/tableSlice";
-import { getTables } from "@/services/getTableDatas";
+import { getTables } from "@/services/tables";
 import { sortDatas } from "@/utils/sortDatas";
 
 const ListTables = () => {
@@ -29,6 +29,9 @@ const ListTables = () => {
     }, [dispatch]);
     
     const filteredDatas = useMemo(() => {
+        if (typeof tables === "string") {
+            return [];
+        }
         return tables?.filter(data => {
             const isCategoryMatch = category.toLowerCase() === "semua meja" || category.toLowerCase() === data.category.toLowerCase();
             const isStatusMatch = status.toLowerCase() === "semua" || status === data.status.toString();

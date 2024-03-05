@@ -9,8 +9,8 @@ import {
 } from "@/features/modal/modalSlice";
 import { setMenus } from "@/features/menus/menusSlice";
 import { clearCart } from "@/features/cart/cartSlice";
-import { postOrderData } from "@/services/postOrderData";
-import { getMenus } from "@/services/getMenuDatas";
+import { postOrderData } from "@/services/orders";
+import { getMenus } from "@/services/menus";
 
 const FooterModal = ({ data = null }) => {
 	const dispatch = useDispatch();

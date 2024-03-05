@@ -2,13 +2,11 @@
 
 import React, { useState, useEffect } from "react";
 import FooterModal from "@/components/Modal/FooterModal";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { getAllCarts } from "../cart/cartSlice";
-import { setOrder, getOrderData } from "../order/orderSlice";
 import { paymentDenomination } from "@/data/paymentDenomination";
 import { formatToRupiah } from "@/utils/formatToRupiah";
 import { generateTableOptions } from "@/utils/generateTableOptions";
-import { paymentAmountChange } from "@/utils/paymentAmountChange";
 import { currentTime } from "@/utils/currentTime";
 import { giveCurrentDateTime } from "@/utils/currentDate";
 

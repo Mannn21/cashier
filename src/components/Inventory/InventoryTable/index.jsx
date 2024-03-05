@@ -15,7 +15,7 @@ import {
 	getKeywordState,
 } from "@/features/inventory/inventorySlice";
 import { formatToRupiah } from "@/utils/formatToRupiah";
-import { getMenus } from "@/services/getMenuDatas";
+import { getMenus } from "@/services/menus";
 
 const InventoryTable = () => {
 	const dispatch = useDispatch();
@@ -35,6 +35,10 @@ const InventoryTable = () => {
 	}, [dispatch]);
 
 	const sortedAndFilteredData = useMemo(() => {
+		if (typeof inventories === "string") {
+			return []; 
+		}
+	
 		const filteredData = inventories?.filter(data => {
 			const isCategoryMatch =
 				category.toLowerCase() === "semua" ||

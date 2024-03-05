@@ -6,8 +6,8 @@ import Swal from "sweetalert2";
 import { setAddTableModal } from "@/features/modal/modalSlice";
 import { setTableDatas } from "@/features/table/tableSlice";
 import Modal from "@/components/Modal/Modal";
-import { postTable } from "@/services/postTable";
-import { getTables } from "@/services/getTableDatas";
+import { postTable } from "@/services/tables";
+import { getTables } from "@/services/tables";
 import { sortDatas } from "@/utils/sortDatas";
 
 const AddTableModal = () => {
