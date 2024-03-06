@@ -73,7 +73,7 @@ const FooterModal = ({ data = null }) => {
 	};
 
 	return (
-		<div className="w-full h-auto flex flex-row gap-4 justify-center items-center pt-3">
+		<div className="w-full h-auto flex flex-row gap-4 justify-center items-center pt-5">
 			<button
 				type="button"
 				onClick={handleModalState}

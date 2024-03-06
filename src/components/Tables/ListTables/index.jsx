@@ -11,6 +11,7 @@ import {
 } from "@/features/table/tableSlice";
 import { getTables } from "@/services/tables";
 import { sortDatas } from "@/utils/sortDatas";
+import { filteredTableDatas } from "@/utils/filteredTableDatas";
 
 const ListTables = () => {
     const dispatch = useDispatch();
@@ -29,14 +30,8 @@ const ListTables = () => {
     }, [dispatch]);
     
     const filteredDatas = useMemo(() => {
-        if (typeof tables === "string") {
-            return [];
-        }
-        return tables?.filter(data => {
-            const isCategoryMatch = category.toLowerCase() === "semua meja" || category.toLowerCase() === data.category.toLowerCase();
-            const isStatusMatch = status.toLowerCase() === "semua" || status === data.status.toString();
-            return isCategoryMatch && isStatusMatch;
-        });
+        const filterDatas = filteredTableDatas(tables, category, status);
+        return filterDatas;
     }, [tables, category, status]);
 
     return (

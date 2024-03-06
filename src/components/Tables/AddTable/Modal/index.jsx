@@ -130,7 +130,7 @@ const AddTableModal = () => {
 							</div>
 						</div>
 					</div>
-					<div>
+					<div className="w-full h-auto flex flex-row justify-center items-center gap-4 mt-3">
 						<button
 							type="button"
 							onClick={handleCloseTableModal}
