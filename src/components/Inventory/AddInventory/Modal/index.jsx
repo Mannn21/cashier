@@ -3,12 +3,9 @@
 import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setAddInventoryModal } from "@/features/modal/modalSlice";
-import Swal from "sweetalert2";
 import Modal from "@/components/Modal/Modal";
 import InputImage from "./InputImage";
-import { postMenus } from "@/services/menus";
-import { getMenus } from "@/services/menus";
-import { setInventoryData } from "@/features/inventory/inventorySlice";
+import { handlePostInventory } from "@/services/handlePostInventory";
 
 const InventoryModal = () => {
     const [image, setImage] = useState(null)
@@ -24,60 +21,13 @@ const InventoryModal = () => {
 		dispatch(setAddInventoryModal(false));
 	};
 
-    const handleInventory = async () => {
-        const datas = await getMenus();
-        dispatch(setInventoryData(datas))
-    }
+	const handleImage = e => {
+		setImage(e)
+	}
 
-    const handleImage = e => {
-        setImage(e)
-    }
-    
-    const handleAddInventory = async () => {
-        const formData = new FormData();
-        formData.append('name', nameRef.current.value);
-        formData.append('price', priceRef.current.value);
-        formData.append('discount', discountRef.current.value);
-        formData.append('stock', stockRef.current.value);
-        formData.append('details', detailsRef.current.value);
-        formData.append('category', categoryRef.current.value);
-        formData.append('image', image)
-        Swal.fire({
-			title: "Menunggu",
-			text: "Sedang memproses pesanan...",
-			allowOutsideClick: false,
-			didOpen: () => {
-				Swal.showLoading();
-			},
-		});
-
-		try {
-			const response = await postMenus(formData, categoryRef.current.value);
-			if (response.status === "Ok") {
-                dispatch(setAddInventoryModal(false));
-                handleInventory()
-				Swal.fire({
-					icon: "success",
-					timer: 2000,
-					timerProgressBar: true,
-					title: "Sukses!",
-					text: response.message,
-				});
-			} else {
-				Swal.fire({
-					icon: "error",
-					title: "Oops...",
-					text: "Ada kesalahan saat memproses pesanan.",
-				});
-			}
-		} catch (error) {
-			Swal.fire({
-				icon: "error",
-				title: "Oops...",
-				text: "Terjadi kesalahan saat memposting pesanan.",
-			});
-		}
-    }
+	const handleSubmit = () => {
+		handlePostInventory(dispatch, image, nameRef, priceRef, discountRef, stockRef, detailsRef, categoryRef);
+	}
 
 	return (
 		<Modal>
@@ -163,7 +113,7 @@ const InventoryModal = () => {
 							</button>
 							<button
 								type="button"
-								onClick={handleAddInventory}
+								onClick={handleSubmit}
 								className="w-auto h-auto text-center px-2 py-1 text-color-primer text-lg font-semibold bg-color-secondary1 rounded-md hover:bg-color-secondary1hover transition-all ease-in-out duration-300">
 								Kirim
 							</button>

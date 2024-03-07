@@ -3,15 +3,16 @@
 import { useEffect, useCallback, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Icon from "@mdi/react";
-import Swal from "sweetalert2";
 import { mdiDeleteOutline, mdiCheckboxMarkedCircleOutline } from "@mdi/js";
 import {
 	getKeywordState,
 	addServings,
 	getAllServings,
 } from "@/features/servings/servingsSlice";
-import { getOrder, checkOrder } from "@/services/orders";
+import { getOrder } from "@/services/orders";
 import { formatToRupiah } from "@/utils/formatToRupiah";
+import { handlePostServings } from "@/services/handlePostServings";
+import { searchedDataServingsByKeyword } from "@/utils/searchedDataServingsByKeyword";
 
 const ServingsTable = () => {
 	const dispatch = useDispatch();
@@ -29,55 +30,13 @@ const ServingsTable = () => {
 	}, [fetchData]);
 
 	const searchedData = useMemo(() => {
-		if (typeof servings === "string") {
-			return [];
-		} else {
-			return servings?.filter(data => {
-				return ["cashierName", "customerName", "tableName"].some(
-					prop =>
-						data[prop] &&
-						data[prop].toLowerCase().includes(keyword.toLowerCase())
-				);
-			});
-		}
+		const searchData = searchedDataServingsByKeyword(servings, keyword)
+		return searchData;
 	}, [keyword, servings]);
 
-	const handleCheck = async id => {
-		Swal.fire({
-			title: "Menunggu",
-			text: "Sedang memproses pesanan...",
-			allowOutsideClick: false,
-			didOpen: () => {
-				Swal.showLoading();
-			},
-		});
-
-		try {
-			const res = await checkOrder(id);
-			if (res.status === "Ok") {
-				fetchData();
-				Swal.fire({
-					icon: "success",
-					timer: 3000,
-					timerProgressBar: true,
-					title: "Sukses!",
-					text: res.message,
-				});
-			} else {
-				Swal.fire({
-					icon: "error",
-					title: "Oops...",
-					text: "Ada kesalahan saat memproses pesanan.",
-				});
-			}
-		} catch (error) {
-			Swal.fire({
-				icon: "error",
-				title: "Oops...",
-				text: "Terjadi kesalahan saat memposting pesanan.",
-			});
-		}
-	};
+	const handleSubmit = (id) => {
+		handlePostServings(id, fetchData)
+	}
 
 	return (
 		<div className="w-full h-auto">
@@ -109,7 +68,7 @@ const ServingsTable = () => {
 								<td className="text-color-secondary2">
 									<Icon
 										path={mdiCheckboxMarkedCircleOutline}
-										onClick={() => handleCheck(data.id)}
+										onClick={() => handleSubmit(data.id)}
 										size={1}
 										className="m-auto cursor-pointer hover:text-color-secondary2hover hover:rotate-12 transition-all ease-in-out duration-300"
 									/>
