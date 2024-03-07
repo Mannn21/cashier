@@ -2,8 +2,6 @@
 
 import React, { useEffect, useCallback, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Icon from "@mdi/react";
-import { mdiPencilOutline, mdiDeleteOutline } from "@mdi/js";
 import { getHistory } from "@/services/history";
 import {
 	addHistory,
@@ -43,53 +41,36 @@ const TableHistoryList = () => {
 
 	return (
 		<div className="w-full h-auto">
-			<table className="w-full h-auto">
-				<thead>
-					<tr>
-						<th>No</th>
-						<th>Nama Kasir</th>
-						<th>Nama Pelanggan</th>
-						<th>Nama Meja</th>
-						<th>Total Harga</th>
-						<th>Waktu Pemesanan</th>
-						<th>Waktu Selesai</th>
-						<th>Edit</th>
-						<th>Hapus</th>
-					</tr>
-				</thead>
-				<tbody>
+			<div className="w-full h-auto border border-color-tersier2 rounded-t-xl overflow-hidden">
+				<table className="w-full h-auto">
 					{Object.entries(groupedDataByDate).map(([date, data]) => (
 						<React.Fragment key={date}>
-							<h2>{formattedDateTime(date)}</h2>
-							{data.map((item, index) => (
-								<tr key={index}>
-									<td>{index + 1}</td>
-									<td>{item.cashier_name}</td>
-									<td>{item.customer_name}</td>
-									<td>{item.table_name}</td>
-									<td>Rp {item.total_price}</td>
-									<td>{item.time_order}</td>
-									<td>{item.time_finish}</td>
-									<td className="text-color-secondary2">
-										<Icon
-											path={mdiPencilOutline}
-											size={1}
-											className="m-auto cursor-pointer hover:text-color-secondary2hover hover:rotate-12 transition-all ease-in-out duration-300"
-										/>
-									</td>
-									<td className="text-color-accent">
-										<Icon
-											path={mdiDeleteOutline}
-											size={1}
-											className="m-auto cursor-pointer hover:text-color-accentHover hover:rotate-12 transition-all ease-in-out duration-300"
-										/>
-									</td>
+							<thead>
+								<tr>
+									<th
+										colSpan="9"
+										className="w-full h-auto px-2 py-3 bg-color-secondary1hover text-color-primer text-left">
+										{formattedDateTime(date)}
+									</th>
 								</tr>
-							))}
+							</thead>
+							<tbody>
+								{data.map((item, index) => (
+									<tr key={index} className="even:bg-color-tersier2">
+										<td>{index + 1}</td>
+										<td>{item.cashier_name}</td>
+										<td>{item.customer_name}</td>
+										<td>{item.table_name}</td>
+										<td>{item.time_order}</td>
+										<td>{item.time_finish}</td>
+										<td>Rp {item.total_price}</td>
+									</tr>
+								))}
+							</tbody>
 						</React.Fragment>
 					))}
-				</tbody>
-			</table>
+				</table>
+			</div>
 		</div>
 	);
 };

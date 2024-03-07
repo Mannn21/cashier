@@ -1,13 +1,17 @@
+import { daysDatas } from "@/data/daysDatas";
+import { monthData } from "@/data/monthData";
+
 export function formattedDateTime(tanggalString) {
-    const months = [
-        "Januari", "Februari", "Maret", "April", "Mei", "Juni",
-        "Juli", "Agustus", "September", "Oktober", "November", "Desember"
-    ];
+	const parsedDatetime = new Date(tanggalString);
 
-    const [datePart, timePart] = tanggalString.split(' ');
-    const [year, month, day] = datePart.split('-').map(Number);
+	const formatDateTime =
+		daysDatas[parsedDatetime.getDay()] +
+		", " +
+		parsedDatetime.getDate() +
+		" " +
+		monthData[parsedDatetime.getMonth()] +
+		" " +
+		parsedDatetime.getFullYear();
 
-    const formattedDate = `${day} ${months[month - 1]} ${year}`;
-
-    return formattedDate;
+	return formatDateTime;
 }
