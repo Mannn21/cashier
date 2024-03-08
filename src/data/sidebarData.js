@@ -7,6 +7,11 @@ export const sidebarData = [
         icon: mdiViewDashboardOutline
     },
     {
+        title: "Profile",
+        path: "/dashboard/profile",
+        icon: mdiAccountOutline
+    },
+    {
         title: "Order List",
         path: "/dashboard/order_list",
         icon: mdiBasketOutline
@@ -30,10 +35,5 @@ export const sidebarData = [
         title: "Tables",
         path: "/dashboard/tables",
         icon: mdiTableFurniture
-    },
-    {
-        title: "Profile",
-        path: "/dashboard/profile",
-        icon: mdiAccountOutline
     },
 ]
