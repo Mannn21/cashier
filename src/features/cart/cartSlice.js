@@ -75,7 +75,6 @@ export const cartSlice = createSlice({
 			const isMenusExists = state.data.orders.findIndex(
 				menu => menu.id === payload.id
 			);
-			console.log({payload})
 			state.data.total_items -= state.data.orders[isMenusExists].quantity;
 			state.data.total_discount -=
 				(payload.discount_order / 100) *

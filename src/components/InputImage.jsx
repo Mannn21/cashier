@@ -15,7 +15,7 @@ const getBase64 = file =>
 const UploadIcon = () => {
 	return <Icon path={mdiUploadOutline} size={1} />;
 };
-const App = ({handleImage}) => {
+const InputImage = ({handleImage}) => {
 	const [previewOpen, setPreviewOpen] = useState(false);
 	const [previewImage, setPreviewImage] = useState("");
 	const [previewTitle, setPreviewTitle] = useState("");
@@ -64,4 +64,4 @@ const App = ({handleImage}) => {
 		</div>
 	);
 };
-export default App;
+export default InputImage;

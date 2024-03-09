@@ -1,28 +1,27 @@
 "use client"
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import {useDispatch, useSelector} from "react-redux";
+import { setEmployeesList, getEmployeesList } from "@/features/employee/employeeSlice";
+import { getEmployees } from "@/services/employees";
 import EmployeeCard from "./EmployeeCard";
 
 const EmployeesCardList = () => {
-    const [ employeesList, setEmployeesList ] = useState([]);
-
-    const fetchApi = async() => {
-        const response = await fetch("https://jsonplaceholder.typicode.com/users", {
-            method: "GET",
-            cache: "no-store"
-        })
-        const res = await response.json();
-        setEmployeesList(res)
-        console.time("Fetching Users Data")
-        console.log("%cFetching Started...", "color: crimson; background: black; padding: 5px");
-        console.table(res);
-        console.log("%cFetching Done...", "color: teal; background: black; padding: 5px");
-        console.timeEnd("Fetching Users Data")
-    }
+    const dispatch = useDispatch();
+    const employeesList = useSelector(getEmployeesList);
     
     useEffect(() => {
-        fetchApi();
-    }, [])
+        const response = async () => { 
+            const employees = await getEmployees();
+            console.log("%cFetching Started....", "color: crimson; background: black; padding: 10px;");
+            console.time("Fetching Employees Data")
+            console.table(employees.message)
+            dispatch(setEmployeesList(employees.message)) 
+            console.timeEnd("Fetching Employees Data")
+            console.log("%cFetching Done....", "color: teal; background: black; padding: 10px;");
+        }
+        response();
+    }, [dispatch])
     
     return (
         <div className="w-full h-auto p-2">

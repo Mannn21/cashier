@@ -8,7 +8,7 @@ const EmployeeCard = ({data}) => {
 					<div className="w-full h-auto flex flex-row justify-start items-center gap-2">
 						<div className="relative w-[80px] h-[80px] rounded-full overflow-hidden bg-color-primer ring-2 ring-color-primer">
 							<Image
-								src="https://placehold.jp/80x80.png"
+								src={data.image.image_URI}
 								alt="Profile"
 								priority
                                 fill
@@ -22,7 +22,7 @@ const EmployeeCard = ({data}) => {
 								{data.name}
 							</h3>
 							<span className="text-sm font-medium tracking-wide text-color-tersier3">
-								{data.username}
+								{data.role}
 							</span>
 						</div>
 					</div>
@@ -32,7 +32,7 @@ const EmployeeCard = ({data}) => {
 								Id Pegawai:{" "}
 							</h4>
 							<span className="text-sm font-semibold tracking-wide text-color-tersier3">
-								{data.zipcode}
+								{data.id}
 							</span>
 						</div>
 						<div className="w-full h-auto flex flex-row gap-1 justify-start items-center">
@@ -48,7 +48,7 @@ const EmployeeCard = ({data}) => {
 								Mulai Bekerja:{" "}
 							</h4>
 							<span className="text-sm font-semibold tracking-wide text-color-tersier3">
-								05 Maret 2024
+								{data.startedAt}
 							</span>
 						</div>
 					</div>

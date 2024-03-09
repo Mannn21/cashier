@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setEmployeeModal, getEmployeeModalState } from "@/features/employee/employeeSlice";
+import { setAddEmployeeModal, getAddEmployeeModal } from "@/features/modal/modalSlice";
 import Icon from "@mdi/react";
 import { mdiPlus } from "@mdi/js";
 import EmployeeModal from "./EmployeeModal";
@@ -11,14 +11,14 @@ import EmployeeModal from "./EmployeeModal";
 const AddInventory = () => {
 	const [portalElement, setPortalElement] = useState(null);
 	const dispatch = useDispatch();
-	const isOpenModal = useSelector(getEmployeeModalState);
+	const isOpenModal = useSelector(getAddEmployeeModal);
 
 	useEffect(() => {
 		setPortalElement(document.getElementById("modal"));
 	}, []);
 
 	const handleAddInventory = () => {
-		dispatch(setEmployeeModal(true));
+		dispatch(setAddEmployeeModal(true));
 	};
 
 	return (

@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setAddInventoryModal } from "@/features/modal/modalSlice";
 import Modal from "@/components/Modal/Modal";
-import InputImage from "./InputImage";
+import InputImage from "../../../InputImage";
 import { handlePostInventory } from "@/services/handlePostInventory";
 
 const InventoryModal = () => {
