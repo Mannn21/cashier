@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { formattedDateTime } from "@/utils/formattedDateTime";
 
 const EmployeeCard = ({data}) => {
 	return (
@@ -48,7 +49,7 @@ const EmployeeCard = ({data}) => {
 								Mulai Bekerja:{" "}
 							</h4>
 							<span className="text-sm font-semibold tracking-wide text-color-tersier3">
-								{data.startedAt}
+								{formattedDateTime(data.startedAt)}
 							</span>
 						</div>
 					</div>

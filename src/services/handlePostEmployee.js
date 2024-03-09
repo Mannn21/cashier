@@ -5,7 +5,7 @@ import { setAddEmployeeModal } from "@/features/modal/modalSlice";
 
 const handleRefresh = async (dispatch) => {
     const datas = await getEmployees();
-    dispatch(setEmployeesList(datas))
+    dispatch(setEmployeesList(datas.message))
 }
 
 export const handlePostEmployee = async (dispatch, image, nameRef, emailRef, addressRef, ageRef, confPasswordRef, passwordRef, roleRef, salaryRef) => {

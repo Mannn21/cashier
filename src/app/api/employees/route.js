@@ -11,7 +11,7 @@ import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
 import { db, storage } from "@/app/firebase";
-import { currentTime } from "@/utils/currentTime";
+import { giveCurrentDateTime } from "@/utils/currentDate";
 
 export const GET = async req => {
 	try {
@@ -22,8 +22,8 @@ export const GET = async req => {
 			getAllEmployees.forEach(doc => {
 				const data = doc.data();
 				const id = doc.id;
-				const { email, name, role, address, age, image, salary } = data;
-				responseData.push({ id, email, name, role, address, age, image, salary });
+				const { email, name, role, address, age, image, salary, startedAt } = data;
+				responseData.push({ id, email, name, role, address, age, image, salary, startedAt });
 			});
 			return NextResponse.json(
 				{ message: responseData },
@@ -98,7 +98,7 @@ export const POST = async req => {
 					address,
 					salary: parseInt(salary),
 					role,
-					startedAt: currentTime(),
+					startedAt: giveCurrentDateTime(),
 					image: {
 						image_URI: downloadURL,
 						image_name: `employee_${id}`,
