@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { formattedDateTime } from "@/utils/formattedDateTime";
 
-const EmployeeCard = ({data}) => {
+const EmployeeCard = ({ data }) => {
 	return (
 		<div className="w-full h-auto">
 			<div className="w-full h-auto p-2 bg-color-primer rounded-md shadow-md">
@@ -12,8 +12,8 @@ const EmployeeCard = ({data}) => {
 								src={data.image.image_URI}
 								alt="Profile"
 								priority
-                                fill
-                                sizes="100%"
+								fill
+								sizes="100%"
 								className="object-center object-cover w-full h-full"
 							/>
 						</div>
@@ -33,7 +33,7 @@ const EmployeeCard = ({data}) => {
 								Id Pegawai:{" "}
 							</h4>
 							<span className="text-sm font-semibold tracking-wide text-color-tersier3">
-								{data.id}
+								{data.id.slice(0, 17)}{"..."}
 							</span>
 						</div>
 						<div className="w-full h-auto flex flex-row gap-1 justify-start items-center">
@@ -41,7 +41,9 @@ const EmployeeCard = ({data}) => {
 								Email:{" "}
 							</h4>
 							<span className="text-sm font-semibold tracking-wide text-color-tersier3">
-								{data.email}
+								{
+									data.email.length > 22 ? (data.email.slice(0, 22) + "...") : (data.email)
+								}
 							</span>
 						</div>
 						<div className="w-full h-auto flex flex-row gap-1 justify-start items-center">
