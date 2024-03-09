@@ -19,6 +19,7 @@ module.exports = {
 		colors: {
 			color: {
 				primer: "#ffffff",
+				transparent: "rgba(255, 255, 255, 0)",
 				secondary1: "#4169E1",
 				secondary1hover: "#2E417A",
 				secondary2: "#3CB371",
