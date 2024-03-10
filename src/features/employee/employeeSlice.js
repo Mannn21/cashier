@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
 	data: [],
 	keyword: "",
-	filter: ""
+	sort: ""
 };
 
 export const employeeSlice = createSlice({
@@ -18,16 +18,16 @@ export const employeeSlice = createSlice({
 			const { payload } = action;
 			state.keyword = payload;
 		},
-		setEmployeesFilter: (state, action) => {
+		setEmployeesSort: (state, action) => {
 			const { payload } = action;
-			state.filter = payload;
+			state.sort = payload;
 		}
 	},
 });
 
-export const { setEmployeesList, setEmployeesKeyword, setEmployeesFilter } = employeeSlice.actions;
+export const { setEmployeesList, setEmployeesKeyword, setEmployeesSort } = employeeSlice.actions;
 export const getEmployeesList = state => state.employee.data;
 export const getEmployeesKeyword = state => state.employee.keyword;
-export const getEmployeesFilter = state => state.employee.filter;
+export const getEmployeesSort = state => state.employee.sort;
 
 export default employeeSlice;
