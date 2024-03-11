@@ -27,7 +27,6 @@ export const GET = async req => {
 						total_item: data.total_item,
 						total_price: data.total_price,
 						date_order: data.date_order,
-						month
 					});
 				}
 
