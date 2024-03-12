@@ -29,22 +29,25 @@ export const GET = async req => {
 
 			// Fungsi untuk mengelompokkan pesanan berdasarkan nama menu dan menambahkan jumlahnya
 			responseData.forEach(({ orders }) => {
-				orders.forEach(({ name, quantity, image_URI, category, price }) => {
+				orders.forEach(({ name, quantity, image_URI, category, price_order, discount_order }) => {
 					if (!groupedOrders[name]) {
 						groupedOrders[name] = {
 							name,
 							quantity: 0,
 							image_URI,
 							category,
-							price,
+							price: price_order,
+							discount: discount_order
 						};
 					}
 					groupedOrders[name].quantity += quantity;
 				});
 			});
 
+			const response = Object.values(groupedOrders)
+
 			return NextResponse.json(
-				{ message: groupedOrders },
+				{ message: response },
 				{ status: 200, statusText: "Ok" }
 			);
 		}

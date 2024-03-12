@@ -25,3 +25,14 @@ export const getOrdersByWeeks = async () => {
 	const response = await res.json();
 	return response.message;
 }
+
+export const getMostOrders = async () => {
+	const date = new Date();
+	const month = date.getMonth() + 1;
+	const res = await fetch(`http://localhost:3000/api/order_lists/history/favorite?month=${month}`, {
+		method: "GET",
+		cache: "no-store"
+	})
+	const response = await res.json();
+	return response.message;
+}

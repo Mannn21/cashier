@@ -1,7 +1,10 @@
 import Image from "next/image";
 import { simulationMostOrder } from "@/data/simulationMostOrder";
 
-const DashboardTable = () => {
+const DashboardTable = ({orders}) => {
+	console.log("%cFetching Started...", "style: background-color: black; color: crimson; padding 10px");
+	console.table(orders)
+	console.log("%cFetching Done", "style: background-color: black; color: teal; padding 10px");
 	return (
 		<div className="w-full h-auto">
 			<table className="w-full h-auto">
@@ -12,17 +15,18 @@ const DashboardTable = () => {
 						<th>Nama</th>
 						<th>Kategory</th>
 						<th>Harga</th>
+						<th>Diskon</th>
                         <th>Jumlah Terjual</th>
 					</tr>
 				</thead>
 				<tbody>
-					{simulationMostOrder?.map((data, index) => {
+					{orders?.map((data, index) => {
 						return (
 							<tr key={index}>
 								<td>{index + 1}</td>
 								<td>
 									<Image
-										src={data.image_url}
+										src={data.image_URI}
 										alt={data.name}
 										width={100}
 										height={100}
@@ -32,7 +36,8 @@ const DashboardTable = () => {
 								<td>{data.name}</td>
 								<td>{data.category}</td>
 								<td>{data.price}</td>
-								<td>{data.sold}</td>
+								<td>{data.discount}</td>
+								<td>{data.quantity}</td>
 							</tr>
 						);
 					})}

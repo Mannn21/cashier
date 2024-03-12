@@ -6,14 +6,18 @@ import IncomeGraphic from "@/components/Dashboard/IncomeGraphic";
 import OrderGraphic from "@/components/Dashboard/OrderGraphic";
 import DashboardTable from "@/components/Dashboard/DashboardTable";
 import { getOrdersByWeeks } from "@/services/history";
+import { getMostOrders } from "@/services/history";
 
 export default function Dashboard() {
 	const [datas, setDatas] = useState([])
+	const [orders, setOrders] = useState([])
 
 	useEffect(() => {	
 		const response = async () => {
 			const datas = await getOrdersByWeeks();
+			const mostOrders = await getMostOrders();
 			setDatas(datas)
+			setOrders(mostOrders)
 		};
 		response()
 	}, [])
@@ -35,7 +39,7 @@ export default function Dashboard() {
 				</div>
 				<div className="w-full h-auto p-2 flex flex-col justify-start items-center gap-4 mt-4 border-2 rounded-md">
 					<h3 className="text-lg font-semibold tracking-wide">Penjualan Terbanyak Bulan Ini</h3>
-					<DashboardTable />
+					<DashboardTable orders={orders} />
 				</div>
 			</div>
 		</div>
