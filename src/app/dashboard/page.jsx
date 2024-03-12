@@ -1,12 +1,13 @@
 "use client"
 
-import {useEffect, useState} from "react";
+import {useEffect, useState, useMemo} from "react";
 import ListCard from "@/components/Dashboard/ListCard";
 import IncomeGraphic from "@/components/Dashboard/IncomeGraphic";
 import OrderGraphic from "@/components/Dashboard/OrderGraphic";
 import DashboardTable from "@/components/Dashboard/DashboardTable";
 import { getOrdersByWeeks } from "@/services/history";
 import { getMostOrders } from "@/services/history";
+import { sortedMostOrderDatas } from "@/utils/sortedMostOrderDatas";
 
 export default function Dashboard() {
 	const [datas, setDatas] = useState([])
@@ -21,6 +22,13 @@ export default function Dashboard() {
 		};
 		response()
 	}, [])
+
+	const sortedMostOrder = useMemo(() => {
+		const sortedData = sortedMostOrderDatas(orders);
+		return sortedData;
+	}, [orders]);
+
+
 
 
 	return (
@@ -39,7 +47,7 @@ export default function Dashboard() {
 				</div>
 				<div className="w-full h-auto p-2 flex flex-col justify-start items-center gap-4 mt-4 border-2 rounded-md">
 					<h3 className="text-lg font-semibold tracking-wide">Penjualan Terbanyak Bulan Ini</h3>
-					<DashboardTable orders={orders} />
+					<DashboardTable orders={sortedMostOrder} />
 				</div>
 			</div>
 		</div>

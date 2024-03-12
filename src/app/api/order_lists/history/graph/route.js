@@ -8,7 +8,7 @@ export const GET = async req => {
 		const today = new Date();
 
 		const sevenDaysAgo = new Date(today);
-		sevenDaysAgo.setDate(today.getDate() - 6);
+		sevenDaysAgo.setDate(today.getDate() - 7);
 
 		const getAllOrderLists = await getDocs(collection(db, "history"));
 		const isDataEmpty = getAllOrderLists.empty;
@@ -50,7 +50,16 @@ export const GET = async req => {
 				return acc;
 			}, {});
 
-			const message = Object.values(response);
+			const sortedKeys = Object.keys(response).sort(
+				(a, b) => new Date(a) - new Date(b)
+			);
+
+			const sortedResponse = {};
+			sortedKeys.forEach(key => {
+				sortedResponse[key] = response[key];
+			});
+
+			const message = Object.values(sortedResponse);
 
 			return NextResponse.json(
 				{ message },
@@ -58,7 +67,6 @@ export const GET = async req => {
 			);
 		}
 	} catch (error) {
-		console.log(error);
 		return NextResponse.json(
 			{ message: "Kesalahan pada server" },
 			{ status: 500, statusText: error }

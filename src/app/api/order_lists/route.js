@@ -20,7 +20,7 @@ export const GET = async req => {
 			let responseData = [];
 			for (const order of getAllOrderLists.docs) {
 				const data = order.data();
-
+				
 				const cashierRef = doc(db, "employees", data.cashier_id);
 				const cashierDoc = await getDoc(cashierRef);
 				const cashierData = cashierDoc.data();
@@ -177,7 +177,8 @@ export const POST = async req => {
 			const priceBeforeDiscount = total_price + discountAmount;
 			totalPriceBeforeDiscount += priceBeforeDiscount;
 		}
-		const finalPrice = (totalPriceBeforeDiscount - totalDiscount) + (total_item * 150) 
+		const finalPrice =
+			totalPriceBeforeDiscount - totalDiscount + total_item * 150;
 		if (totalDiscount !== total_discount || total_price !== finalPrice) {
 			return NextResponse.json(
 				{ message: "Total harga pesanan tidak sesuai" },
@@ -231,7 +232,7 @@ export const POST = async req => {
 		return NextResponse.json(
 			{
 				message: `Pesanan berhasil dibuat, total kembalian adalah Rp.${total_return}`,
-				status: "Ok"
+				status: "Ok",
 			},
 			{ status: 201, statusText: "Created" }
 		);

@@ -49,7 +49,7 @@ const PaymentModal = () => {
 		customer_name: customerName,
 		date: giveCurrentDateTime(),
 		order_time: currentTime(),
-		cashier_id: "e84b8704-b2e5-4c77-af49-ad6ec3239f29",
+		cashier_id: "5f567704-e8f5-4726-8045-33fca74eff63",
 		total_price,
 		total_orders,
 		total_item: total_items,

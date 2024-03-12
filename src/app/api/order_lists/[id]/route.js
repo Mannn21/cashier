@@ -94,6 +94,7 @@ export const PUT = async (req, {params}) => {
                 time_order: data.order_time,
                 time_finish: time,
                 cashier_name: cashier.name,
+                cashier_id: data.cashier_id,
                 total_price: data.total_price,
                 total_item: data.total_item,
                 total_discount: data.total_discount,
