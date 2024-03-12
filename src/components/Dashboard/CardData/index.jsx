@@ -1,6 +1,7 @@
 import Icon from "@mdi/react";
 
-const CardData = ({ data }) => {
+const CardData = ({ data, details }) => {
+
 	return (
 		<div className="w-full h-auto p-2 rounded-md bg-color-secondary1 shadow-xl">
 			<div className="w-full h-auto flex flex-col gap-3 p-2">
@@ -12,7 +13,7 @@ const CardData = ({ data }) => {
 						<span className="text-base font-semibold tracking-wide">
 							{data.title}
 						</span>
-						<h4 className="text-xl font-semibold tracking-wide">{data.value}</h4>
+						<h4 className="text-xl font-semibold tracking-wide">{details.value}</h4>
 					</div>
 				</div>
 			</div>

@@ -39,6 +39,7 @@ export const GET = async req => {
 			}, 0)
 			const response = {
 				total_prices,
+				total_income: total_prices - (total_items * 150), 
 				total_items,
 				total_taxes: total_items * 150,
 				total_orders: responseData.length
