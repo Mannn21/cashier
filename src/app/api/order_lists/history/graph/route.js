@@ -1,17 +1,14 @@
 import { NextResponse } from "next/server";
 import { getDocs, collection } from "firebase/firestore";
 import { db } from "@/app/firebase";
+import { getDaysFormatted } from "@/utils/getDaysFormatted";
 
 export const GET = async req => {
 	try {
 		const today = new Date();
 
 		const sevenDaysAgo = new Date(today);
-		sevenDaysAgo.setDate(today.getDate() - 7);
-
-		const formattedSevenDaysAgo = `${sevenDaysAgo.getFullYear()}-${
-			sevenDaysAgo.getMonth() + 1
-		}-${sevenDaysAgo.getDate()}`;
+		sevenDaysAgo.setDate(today.getDate() - 6);
 
 		const getAllOrderLists = await getDocs(collection(db, "history"));
 		const isDataEmpty = getAllOrderLists.empty;
@@ -21,39 +18,42 @@ export const GET = async req => {
 				const id = doc.id;
 				const data = doc.data();
 				const month = data.date_order.split(" ")[0];
-				if (month >= formattedSevenDaysAgo) {
+				const dateFromDatabase = new Date(data.date_order);
+				if (dateFromDatabase >= sevenDaysAgo) {
 					responseData.push({
 						id,
-						cashier_name: data.cashier_name,
-						date_order: data.date_order,
+						date_order: month,
 						total_item: data.total_item,
-						total_price: data.total_price - (data.total_item * 150),
-						formattedSevenDaysAgo,
-						month,
+						total_price: data.total_price - data.total_item * 150,
 					});
 				}
 			});
 
+			responseData.reverse();
+
 			const response = responseData.reduce((acc, data) => {
-				const month = data.date_order.split(" ")[0];
-				if (!acc[month]) {
-					acc[month] = {
-						cashier_name: data.cashier_name,
-						date_order: data.date_order,
+				const { date_order, total_price, total_item } = data;
+
+				if (!acc[date_order]) {
+					acc[date_order] = {
+						days: getDaysFormatted(date_order),
 						total_price: 0,
 						total_item: 0,
 						total_taxes: 0,
-						formattedSevenDaysAgo,
 					};
 				}
-				acc[month].total_price += data.total_price;
-				acc[month].total_item += data.total_item;
-				acc[month].total_taxes += data.total_item * 150;
+
+				acc[date_order].total_price += total_price;
+				acc[date_order].total_item += total_item;
+				acc[date_order].total_taxes += total_item * 150;
+
 				return acc;
 			}, {});
 
+			const message = Object.values(response);
+
 			return NextResponse.json(
-				{ message: response },
+				{ message },
 				{ status: 200, statusText: "Ok" }
 			);
 		}

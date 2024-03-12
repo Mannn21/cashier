@@ -16,3 +16,12 @@ export const getIncomeByMonth = async () => {
 	const response = await res.json();
 	return response.message;
 }
+
+export const getOrdersByWeeks = async () => {
+	const res = await fetch("http://localhost:3000/api/order_lists/history/graph", {
+		method: "GET",
+		cache: "no-store"
+	})
+	const response = await res.json();
+	return response.message;
+}

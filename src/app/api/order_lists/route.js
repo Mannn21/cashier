@@ -166,7 +166,6 @@ export const POST = async req => {
 				{ status: 400, statusText: "Bad Request" }
 			);
 		}
-		// Kelanjutan Logika Bisnis
 		let totalDiscount = 0;
 		let totalPriceBeforeDiscount = 0;
 		for (const order of orders) {
@@ -186,7 +185,6 @@ export const POST = async req => {
 			);
 		}
 		const time = currentTime();
-		// MASALAHNYA GAK SESUAI DI ARRAY ORDERS
 		for (const order of orders) {
 			const {
 				id,
