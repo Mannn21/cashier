@@ -6,6 +6,8 @@ import Modal from "@/components/Modal/Modal";
 import InputImage from "@/components/InputImage";
 import { handlePostEmployee } from "@/services/handlePostEmployee";
 import { setAddEmployeeModal } from "@/features/modal/modalSlice";
+import { auth } from "@/app/firebase";
+import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 
 const EmployeeModal = () => {
 	const dispatch = useDispatch();
@@ -18,6 +20,7 @@ const EmployeeModal = () => {
 	const confPasswordRef = useRef(null);
 	const roleRef = useRef(null);
 	const salaryRef = useRef(null);
+	const [createUserWithEmailAndPassword] = useCreateUserWithEmailAndPassword(auth);
 
 	const handleImage = e => {
 		setImage(e);
@@ -27,8 +30,10 @@ const EmployeeModal = () => {
 		dispatch(setAddEmployeeModal(false));
 	};
 
-	const handleSubmit = () => {
+	const handleSubmit = async () => {
+		const res = await createUserWithEmailAndPassword(emailRef.current.value, passwordRef.current.value);
         handlePostEmployee(dispatch, image, nameRef, emailRef, addressRef, ageRef, confPasswordRef, passwordRef, roleRef, salaryRef);
+		console.log({res});
 	};
 
 	return (

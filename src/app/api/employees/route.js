@@ -12,6 +12,11 @@ import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
 import { db, storage } from "@/app/firebase";
 import { giveCurrentDateTime } from "@/utils/currentDate";
+import {
+	checkIsValidEmail,
+	checkIsValidPassword,
+	checkIsValidImage,
+} from "@/utils/regexValidation";
 
 export const GET = async req => {
 	try {
@@ -22,8 +27,19 @@ export const GET = async req => {
 			getAllEmployees.forEach(doc => {
 				const data = doc.data();
 				const id = doc.id;
-				const { email, name, role, address, age, image, salary, startedAt } = data;
-				responseData.push({ id, email, name, role, address, age, image, salary, startedAt });
+				const { email, name, role, address, age, image, salary, startedAt } =
+					data;
+				responseData.push({
+					id,
+					email,
+					name,
+					role,
+					address,
+					age,
+					image,
+					salary,
+					startedAt,
+				});
 			});
 			return NextResponse.json(
 				{ message: responseData },
@@ -68,13 +84,35 @@ export const POST = async req => {
 			{ status: 400, statusText: "Bad Request" }
 		);
 	}
+	const checkEmail = checkIsValidEmail(email);
+	const checkPassword = checkIsValidPassword(password);
+	const checkImage = checkIsValidImage(image.name);
 	if (password !== confPassword) {
 		return NextResponse.json(
 			{ message: "Konfirmasi password tidak sesuai" },
 			{ status: 400, statusText: "Bad Request" }
 		);
 	}
+	if(!checkEmail) {
+		return NextResponse.json(
+			{ message: "Mohon masukkan email dengan format yang sesuai" },
+			{ status: 400, statusText: "Bad Request" }
+		);
+	}
+	if(!checkPassword) {
+		return NextResponse.json(
+			{ message: "Panjang password minimal 5 karakter dengan kombinasi huruf kapital, angka dan simbol." },
+			{ status: 400, statusText: "Bad Request" }
+		);
+	}
+	if(!checkImage) {
+		return NextResponse.json(
+			{ message: "Mohon masukkan gambar yang sesuai (png, jpg, jpeg, atau webp)" },
+			{ status: 400, statusText: "Bad Request" }
+		);
+	}
 	try {
+		console.log({ checkEmail, checkPassword, checkImage });
 		const searchQuery = query(
 			collection(db, "employees"),
 			where("email", "==", email)

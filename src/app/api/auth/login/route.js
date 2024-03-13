@@ -35,7 +35,7 @@ export const POST = async req => {
                         time_login: time
                     })
                     return NextResponse.json(
-                        {message: "Login berhasil"},
+                        {message: "Login berhasil", status: "Ok"},
                         {status: 201, statusText: "Created"}
                     )
                 }
