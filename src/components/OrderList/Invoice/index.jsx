@@ -3,7 +3,7 @@
 import { createPortal } from "react-dom";
 import {useState, useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setCheckOutModalModal, getCheckOutModalState } from "@/features/modal/modalSlice";
+import { setCheckOutModal, getCheckOutModalState, getPaymentModalState } from "@/features/modal/modalSlice";
 import InvoiceCard from "./InvoiceCard";
 import EmptyInvoice from "./EmptyInvoice";
 import { getAllCarts } from "@/features/cart/cartSlice";
@@ -14,6 +14,7 @@ const Invoice = () => {
 	const [portalElement, setPortalElement] = useState(null)
 	const dispatch = useDispatch();
 	const isOpenModal = useSelector(getCheckOutModalState);
+	const isPaymentOpen = useSelector(getPaymentModalState);
 	
 	const carts = useSelector(getAllCarts);
 	const { orders } = carts;
@@ -23,9 +24,9 @@ const Invoice = () => {
     }, []);
 
 	const handleCartModal = () => {
-		dispatch(setCheckOutModalModal(true))
+		dispatch(setCheckOutModal(true))
 	}
-	
+
 	return (
 		<div className="w-full h-auto">
 			<div className="w-full h-auto flex flex-col gap-1 justify-start items-center">

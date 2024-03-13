@@ -1,5 +1,7 @@
 import { Montserrat } from "next/font/google";
 import { ReduxProvider } from "./provider";
+import { Suspense } from "react";
+import Loading from "./dashboard/loading";
 import "./globals.css";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
@@ -14,7 +16,9 @@ export default function RootLayout({ children }) {
 		<html lang="en">
 			<body className={montserrat.className} suppressHydrationWarning={true}>
 				<ReduxProvider>
-					<div id="modal">{children}</div>
+					<Suspense fallback={<Loading />}>
+						<div id="modal">{children}</div>
+					</Suspense>
 				</ReduxProvider>
 			</body>
 		</html>

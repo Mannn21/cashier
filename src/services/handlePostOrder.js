@@ -1,6 +1,6 @@
 import Swal from "sweetalert2";
 import { postOrderData } from "./orders";
-import { setCheckOutModalModal } from "@/features/modal/modalSlice";
+import { setCheckOutModal, setPaymentModal } from "@/features/modal/modalSlice";
 import { clearCart } from "@/features/cart/cartSlice";
 import { getMenus } from "./menus";
 import { setMenus } from "@/features/menus/menusSlice";
@@ -23,7 +23,8 @@ export const handlePostOrder = async (data, dispatch) => {
     try {
         const response = await postOrderData(data);
         if (response.status === "Ok") {
-            dispatch(setCheckOutModalModal(false));
+            dispatch(setCheckOutModal(false));
+            dispatch(setPaymentModal(false))
             dispatch(clearCart())
             handleMenus(dispatch);
             Swal.fire({

@@ -12,7 +12,7 @@ export const modalSlice = createSlice({
 	name: "modal",
 	initialState,
 	reducers: {
-		setCheckOutModalModal: (state, action) => {
+		setCheckOutModal: (state, action) => {
 			const { payload } = action;
 			state.isCheckOutModalOpen = payload;
 		},
@@ -35,7 +35,7 @@ export const modalSlice = createSlice({
 	},
 });
 
-export const { setCheckOutModalModal, setPaymentModal, setAddTableModal, setAddInventoryModal, setAddEmployeeModal } = modalSlice.actions;
+export const { setCheckOutModal, setPaymentModal, setAddTableModal, setAddInventoryModal, setAddEmployeeModal } = modalSlice.actions;
 export const getCheckOutModalState = state => state.modal.isCheckOutModalOpen;
 export const getPaymentModalState = state => state.modal.paymentModal;
 export const getAddTableModal = state => state.modal.isAddTableModal

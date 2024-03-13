@@ -2,7 +2,7 @@
 
 import { useDispatch, useSelector } from "react-redux";
 import {
-	setCheckOutModalModal,
+	setCheckOutModal,
 	setPaymentModal,
 	getPaymentModalState,
 } from "@/features/modal/modalSlice";
@@ -12,7 +12,7 @@ const FooterModal = ({ data = null }) => {
 	const paymentModalState = useSelector(getPaymentModalState);
 
 	const handleModalState = () => {
-		dispatch(setCheckOutModalModal(false));
+		dispatch(setCheckOutModal(false));
 	};
 
 	const handleSubmit = () => {

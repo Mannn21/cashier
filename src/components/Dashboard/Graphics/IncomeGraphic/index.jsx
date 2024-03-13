@@ -10,7 +10,7 @@ import {
 } from "recharts";
 
 
-const AreaCharts = ({ datas }) => {
+const IncomeGraphic = ({ datas }) => {
 	const formatYAxis = value => {
 		if (value >= 1000) {
 			return `${value / 1000}k`;
@@ -49,4 +49,4 @@ const AreaCharts = ({ datas }) => {
 	);
 };
 
-export default AreaCharts;
+export default IncomeGraphic;
