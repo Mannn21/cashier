@@ -15,7 +15,7 @@ const getBase64 = file =>
 const UploadIcon = () => {
 	return <Icon path={mdiUploadOutline} size={1} />;
 };
-const InputImage = ({handleImage}) => {
+const InputImage = ({ handleImage }) => {
 	const [previewOpen, setPreviewOpen] = useState(false);
 	const [previewImage, setPreviewImage] = useState("");
 	const [previewTitle, setPreviewTitle] = useState("");
@@ -31,10 +31,14 @@ const InputImage = ({handleImage}) => {
 			file.name || file.url.substring(file.url.lastIndexOf("/") + 1)
 		);
 	};
-	const handleChange = ({ fileList: newFileList }) => {
-    setFileList(newFileList)
-    handleImage(newFileList[0].originFileObj)
-  }
+	const handleChange = async ({ fileList: newFileList }) => {
+		setFileList(newFileList);
+		const file = newFileList[0].originFileObj;
+		const blob = await createImageBitmap(file);
+		const webPFile = await createImageBitmap(blob, { type: "image/webp" });
+		handleImage(webPFile);
+	};
+
 	const uploadButton = (
 		<button
 			className="border-none bg-none flex flex-col justify-center items-center"

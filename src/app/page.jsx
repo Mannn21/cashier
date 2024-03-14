@@ -1,16 +1,17 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { auth } from "./firebase";
 
 export default function Home() {
+	const [isLoading, setIsLoading] = useState(false);
 	const emailRef = useRef(null);
 	const passwordRef = useRef(null);
-	const [signInWithEmailAndPassword] =
-  useSignInWithEmailAndPassword(auth);
+	const [signInWithEmailAndPassword] = useSignInWithEmailAndPassword(auth);
 
 	const handleSubmit = async () => {
+		setIsLoading(true);
 		const email = emailRef.current.value;
 		const password = passwordRef.current.value;
 		const data = {
@@ -18,19 +19,27 @@ export default function Home() {
 			password,
 		};
 		try {
-      const setUserAuth = await signInWithEmailAndPassword(email, password);
-      const fetchUser = await fetch("http://localhost:3000/api/auth/login", {
+			console.log("%cFetching Authentication User Started....", "style: background-color: black; color: crimson; padding: 10px;")
+			console.time("Fetching Authentication User Login")
+			const setUserAuth = await signInWithEmailAndPassword(email, password);
+			const fetchUser = await fetch("http://localhost:3000/api/auth/login", {
 				method: "POST",
 				cache: "no-store",
-        body: JSON.stringify(data)
+				body: JSON.stringify(data),
 			});
-      const res = await fetchUser.json();
-      if(res.status === "OK") {
-        console.log({setUserAuth, res})
-      }
+			const res = await fetchUser.json();
+			if (res.status === "Ok") {
+				const userAuth = setUserAuth.user
+				console.table({userAuth})
+				console.table(res)
+				console.timeEnd("Fetching Authentication User Login")
+				console.log("%cFetching Authentication User Started....", "style: background-color: black; color: #ADD8E6; padding: 10px;")
+				setIsLoading(false)
+			}
 		} catch (error) {
-      console.error(error)
-    }
+			setIsLoading(false);
+			console.error(error);
+		}
 	};
 
 	return (
@@ -79,7 +88,9 @@ export default function Home() {
 							type="button"
 							onClick={handleSubmit}
 							className="w-full py-2 text-xl font-bold tracking-wide flex justify-center items-center rounded-md bg-color-secondary1 hover:bg-color-secondary1hover hover:text-color-primer ease-in-out transition-all duration-300">
-							Login
+							{
+								isLoading ? (<span>Loading...</span>) : (<span>Login</span>)
+							}
 						</button>
 					</div>
 				</div>

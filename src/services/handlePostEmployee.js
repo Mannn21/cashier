@@ -8,10 +8,11 @@ const handleRefresh = async (dispatch) => {
     dispatch(setEmployeesList(datas.message))
 }
 
-export const handlePostEmployee = async (dispatch, image, nameRef, emailRef, addressRef, ageRef, confPasswordRef, passwordRef, roleRef, salaryRef) => {
+export const handlePostEmployee = async (dispatch, image, userId, nameRef, emailRef, addressRef, ageRef, confPasswordRef, passwordRef, roleRef, salaryRef) => {
     const formData = new FormData();
     formData.append('name', nameRef.current.value);
     formData.append('email', emailRef.current.value);
+    formData.append('userId', userId)
     formData.append('address', addressRef.current.value);
     formData.append('age', ageRef.current.value);
     formData.append('password', passwordRef.current.value);

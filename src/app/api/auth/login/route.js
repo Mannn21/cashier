@@ -26,7 +26,7 @@ export const POST = async req => {
             if(comparePassword) {
                 const searchAuthQuery = query(collection(db, "auth"), where("email", "==", data.email))
                 const searchAuthData = await getDocs(searchAuthQuery)
-                if(searchAuthData.empty) {
+                if(!searchAuthData.empty) {
                     const id = uuidv4()
                     const time = new Date().toLocaleTimeString()
                     await setDoc(doc(db, "auth", id), {
@@ -41,10 +41,12 @@ export const POST = async req => {
                 }
                 let loginData;
                 searchAuthData.forEach(doc => {
-                    loginData = doc.data()
+                    data = doc.data
+                    console.log({data});
                 })
+                // console.log({loginData});
                 return NextResponse.json(
-                    {message: loginData},
+                    {message: "OK", status: "Ok"},
                     {status: 200, statusText: "Ok"}
                 )
             }

@@ -32,8 +32,9 @@ const EmployeeModal = () => {
 
 	const handleSubmit = async () => {
 		const res = await createUserWithEmailAndPassword(emailRef.current.value, passwordRef.current.value);
-        handlePostEmployee(dispatch, image, nameRef, emailRef, addressRef, ageRef, confPasswordRef, passwordRef, roleRef, salaryRef);
-		console.log({res});
+        if(res.user) {
+			handlePostEmployee(dispatch, image, res.user.uid, nameRef, emailRef, addressRef, ageRef, confPasswordRef, passwordRef, roleRef, salaryRef);
+		}
 	};
 
 	return (

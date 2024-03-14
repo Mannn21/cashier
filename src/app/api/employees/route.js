@@ -9,7 +9,6 @@ import {
 } from "firebase/firestore";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import bcrypt from "bcrypt";
-import { v4 as uuidv4 } from "uuid";
 import { db, storage } from "@/app/firebase";
 import { giveCurrentDateTime } from "@/utils/currentDate";
 import {
@@ -58,10 +57,12 @@ export const GET = async req => {
 	}
 };
 
+
 export const POST = async req => {
 	const formData = await req.formData();
 	const image = formData.get("image");
 	const name = formData.get("name");
+	const userId = formData.get("userId");
 	const email = formData.get("email");
 	const password = formData.get("password");
 	const confPassword = formData.get("confPassword");
@@ -72,6 +73,7 @@ export const POST = async req => {
 	if (
 		!email ||
 		!name ||
+		!userId ||
 		!password ||
 		!confPassword ||
 		!age ||
@@ -86,33 +88,29 @@ export const POST = async req => {
 	}
 	const checkEmail = checkIsValidEmail(email);
 	const checkPassword = checkIsValidPassword(password);
-	const checkImage = checkIsValidImage(image.name);
+	// const checkImage = checkIsValidImage(image.name);
 	if (password !== confPassword) {
 		return NextResponse.json(
 			{ message: "Konfirmasi password tidak sesuai" },
 			{ status: 400, statusText: "Bad Request" }
 		);
 	}
-	if(!checkEmail) {
+	if (!checkEmail) {
 		return NextResponse.json(
 			{ message: "Mohon masukkan email dengan format yang sesuai" },
 			{ status: 400, statusText: "Bad Request" }
 		);
 	}
-	if(!checkPassword) {
+	if (!checkPassword) {
 		return NextResponse.json(
-			{ message: "Panjang password minimal 5 karakter dengan kombinasi huruf kapital, angka dan simbol." },
-			{ status: 400, statusText: "Bad Request" }
-		);
-	}
-	if(!checkImage) {
-		return NextResponse.json(
-			{ message: "Mohon masukkan gambar yang sesuai (png, jpg, jpeg, atau webp)" },
+			{
+				message:
+					"Panjang password minimal 5 karakter dengan kombinasi huruf kapital, angka dan simbol.",
+			},
 			{ status: 400, statusText: "Bad Request" }
 		);
 	}
 	try {
-		console.log({ checkEmail, checkPassword, checkImage });
 		const searchQuery = query(
 			collection(db, "employees"),
 			where("email", "==", email)
@@ -120,14 +118,13 @@ export const POST = async req => {
 		const searchData = await getDocs(searchQuery);
 		const isDataNotExist = searchData.empty;
 		if (isDataNotExist) {
-			const id = uuidv4();
 			const salt = await bcrypt.genSalt(10);
 			const encryptedPassword = await bcrypt.hash(confPassword, salt);
-			const storageRef = ref(storage, `images/employees/employee_${id}`);
+			const storageRef = ref(storage, `images/employees/employee_${userId}`);
 			const snapshot = await uploadBytes(storageRef, image);
 			const downloadURL = await getDownloadURL(snapshot.ref);
 			if (downloadURL !== "" || downloadURL !== undefined) {
-				await setDoc(doc(db, "employees", id), {
+				await setDoc(doc(db, "employees", userId), {
 					email,
 					name,
 					password: encryptedPassword,
@@ -139,7 +136,7 @@ export const POST = async req => {
 					startedAt: giveCurrentDateTime(),
 					image: {
 						image_URI: downloadURL,
-						image_name: `employee_${id}`,
+						image_name: `employee_${userId}`,
 					},
 				});
 				return NextResponse.json(
