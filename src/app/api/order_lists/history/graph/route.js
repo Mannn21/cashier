@@ -61,10 +61,7 @@ export const GET = async req => {
 
 			const message = Object.values(sortedResponse);
 
-			return NextResponse.json(
-				{ message },
-				{ status: 200, statusText: "Ok" }
-			);
+			return NextResponse.json({ message }, { status: 200, statusText: "Ok" });
 		}
 	} catch (error) {
 		return NextResponse.json(

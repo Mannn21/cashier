@@ -20,7 +20,7 @@ export const GET = async req => {
 			let responseData = [];
 			for (const order of getAllOrderLists.docs) {
 				const data = order.data();
-				
+
 				const cashierRef = doc(db, "employees", data.cashier_id);
 				const cashierDoc = await getDoc(cashierRef);
 				const cashierData = cashierDoc.data();

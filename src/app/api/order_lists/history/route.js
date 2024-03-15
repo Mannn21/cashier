@@ -9,12 +9,12 @@ export const GET = async req => {
 
 		if (!isDataEmpty) {
 			let responseData = [];
-            getAllOrderLists.forEach(doc => {
-                const id = doc.id;
-                const data = doc.data();
-                
-                responseData.push({
-                    id,
+			getAllOrderLists.forEach(doc => {
+				const id = doc.id;
+				const data = doc.data();
+
+				responseData.push({
+					id,
 					orders: data.orders,
 					table_category: data.table_category,
 					table_status: data.table_status,
@@ -30,8 +30,8 @@ export const GET = async req => {
 					total_payment: data.total_payment,
 					status: data.status,
 					total_return: data.total_return,
-                })
-            })
+				});
+			});
 			return NextResponse.json(
 				{ message: responseData },
 				{ status: 200, statusText: "Ok" }

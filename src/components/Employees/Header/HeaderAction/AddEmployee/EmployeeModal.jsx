@@ -7,7 +7,7 @@ import InputImage from "@/components/InputImage";
 import { handlePostEmployee } from "@/services/handlePostEmployee";
 import { setAddEmployeeModal } from "@/features/modal/modalSlice";
 import { auth } from "@/app/firebase";
-import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const EmployeeModal = () => {
 	const dispatch = useDispatch();
@@ -20,7 +20,6 @@ const EmployeeModal = () => {
 	const confPasswordRef = useRef(null);
 	const roleRef = useRef(null);
 	const salaryRef = useRef(null);
-	const [createUserWithEmailAndPassword] = useCreateUserWithEmailAndPassword(auth);
 
 	const handleImage = e => {
 		setImage(e);
@@ -31,10 +30,26 @@ const EmployeeModal = () => {
 	};
 
 	const handleSubmit = async () => {
-		const res = await createUserWithEmailAndPassword(emailRef.current.value, passwordRef.current.value);
-        if(res.user) {
-			handlePostEmployee(dispatch, image, res.user.uid, nameRef, emailRef, addressRef, ageRef, confPasswordRef, passwordRef, roleRef, salaryRef);
-		}
+		await createUserWithEmailAndPassword(auth, emailRef.current.value, passwordRef.current.value)
+			.then(userCredential => {
+				const user = userCredential.user;
+				handlePostEmployee(
+					dispatch,
+					image,
+					user.uid,
+					nameRef,
+					emailRef,
+					addressRef,
+					ageRef,
+					confPasswordRef,
+					passwordRef,
+					roleRef,
+					salaryRef
+				);
+			})
+			.catch(error => {
+				console.log(error.message);
+			});
 	};
 
 	return (

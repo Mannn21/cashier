@@ -1,14 +1,15 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "./firebase";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
 	const [isLoading, setIsLoading] = useState(false);
 	const emailRef = useRef(null);
 	const passwordRef = useRef(null);
-	const [signInWithEmailAndPassword] = useSignInWithEmailAndPassword(auth);
+	const router = useRouter();
 
 	const handleSubmit = async () => {
 		setIsLoading(true);
@@ -19,23 +20,24 @@ export default function Home() {
 			password,
 		};
 		try {
-			console.log("%cFetching Authentication User Started....", "style: background-color: black; color: crimson; padding: 10px;")
-			console.time("Fetching Authentication User Login")
-			const setUserAuth = await signInWithEmailAndPassword(email, password);
-			const fetchUser = await fetch("http://localhost:3000/api/auth/login", {
-				method: "POST",
-				cache: "no-store",
-				body: JSON.stringify(data),
-			});
-			const res = await fetchUser.json();
-			if (res.status === "Ok") {
-				const userAuth = setUserAuth.user
-				console.table({userAuth})
-				console.table(res)
-				console.timeEnd("Fetching Authentication User Login")
-				console.log("%cFetching Authentication User Started....", "style: background-color: black; color: #ADD8E6; padding: 10px;")
-				setIsLoading(false)
-			}
+			signInWithEmailAndPassword(auth, email, password)
+				.then(async userCredential => {
+					const user = userCredential.user;
+					const fetchUser = await fetch("http://localhost:3000/api/auth/login", {
+						method: "POST",
+						cache: "no-store",
+						body: JSON.stringify(data),
+					});
+					const res = await fetchUser.json();
+					if (res.status === "Ok" && user) {
+						router.push("/dashboard");
+						setIsLoading(false);
+					}
+				})
+				.catch(error => {
+					console.log(error.message);
+					setIsLoading(false);
+				});
 		} catch (error) {
 			setIsLoading(false);
 			console.error(error);
@@ -88,9 +90,7 @@ export default function Home() {
 							type="button"
 							onClick={handleSubmit}
 							className="w-full py-2 text-xl font-bold tracking-wide flex justify-center items-center rounded-md bg-color-secondary1 hover:bg-color-secondary1hover hover:text-color-primer ease-in-out transition-all duration-300">
-							{
-								isLoading ? (<span>Loading...</span>) : (<span>Login</span>)
-							}
+							{isLoading ? <span>Loading...</span> : <span>Login</span>}
 						</button>
 					</div>
 				</div>

@@ -20,7 +20,7 @@ export const GET = async req => {
 				const id = doc.id;
 				const data = doc.data();
 				const month = data.date_order.split("-")[1];
-				if(month === query) {
+				if (month === query) {
 					responseData.push({
 						id,
 						cashier_name: data.cashier_name,
@@ -29,21 +29,20 @@ export const GET = async req => {
 						date_order: data.date_order,
 					});
 				}
-
 			});
 			const total_prices = responseData.reduce((accumulator, currentValue) => {
 				return accumulator + currentValue.total_price;
-			}, 0)
+			}, 0);
 			const total_items = responseData.reduce((accumulator, currentValue) => {
 				return accumulator + currentValue.total_item;
-			}, 0)
+			}, 0);
 			const response = {
 				total_prices,
-				total_income: total_prices - (total_items * 150), 
+				total_income: total_prices - total_items * 150,
 				total_items,
 				total_taxes: total_items * 150,
-				total_orders: responseData.length
-			}
+				total_orders: responseData.length,
+			};
 			return NextResponse.json(
 				{ message: response },
 				{ status: 200, statusText: "Ok" }

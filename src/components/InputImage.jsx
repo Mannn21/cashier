@@ -33,10 +33,7 @@ const InputImage = ({ handleImage }) => {
 	};
 	const handleChange = async ({ fileList: newFileList }) => {
 		setFileList(newFileList);
-		const file = newFileList[0].originFileObj;
-		const blob = await createImageBitmap(file);
-		const webPFile = await createImageBitmap(blob, { type: "image/webp" });
-		handleImage(webPFile);
+		handleImage(newFileList[0].originFileObj);
 	};
 
 	const uploadButton = (

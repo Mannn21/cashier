@@ -27,9 +27,9 @@ const MostOrderTable = ({ orders }) => {
 											<Image
 												src={data.image_URI}
 												alt={data.name}
-												layout="fill"
-												objectFit="cover"
-												className="object-center object-cover"
+												width={200}
+												height={200}
+												className="object-cover w-full h-full"
 											/>
 										</div>
 									</div>
