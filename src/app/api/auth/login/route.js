@@ -39,7 +39,7 @@ export const POST = async req => {
 					where("email", "==", data.email)
 				);
 				const searchAuthData = await getDocs(searchAuthQuery);
-				if (!searchAuthData.empty) {
+				if (searchAuthData.empty) {
 					const id = uuidv4();
 					const time = new Date().toLocaleTimeString();
 					await setDoc(doc(db, "auth", id), {
@@ -51,15 +51,15 @@ export const POST = async req => {
 						{ message: "Login berhasil", status: "Ok" },
 						{ status: 201, statusText: "Created" }
 					);
+
 				}
 				let loginData;
 				searchAuthData.forEach(doc => {
 					data = doc.data;
-					console.log({ data });
+					loginData = data;
 				});
-				// console.log({loginData});
 				return NextResponse.json(
-					{ message: "OK", status: "Ok" },
+					{ message: loginData, status: "Ok" },
 					{ status: 200, statusText: "Ok" }
 				);
 			}

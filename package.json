@@ -9,8 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@mdi/js": "^7.4.47",
-    "@mdi/react": "^1.6.1",
     "@reduxjs/toolkit": "^2.1.0",
     "antd": "^5.14.1",
     "bcrypt": "^5.1.1",

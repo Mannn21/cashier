@@ -29,6 +29,7 @@ export default function Home() {
 						body: JSON.stringify(data),
 					});
 					const res = await fetchUser.json();
+					console.log(user);
 					if (res.status === "Ok" && user) {
 						router.push("/dashboard");
 						setIsLoading(false);

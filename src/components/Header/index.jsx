@@ -30,7 +30,7 @@ const Header = () => {
 				</div>
 				<div className="w-1/2 flex justify-end items-center gap-4">
 					<span className="text-xl font-semibold tracking wide text-color-tersier3">
-						<date>{date}</date>
+						<span>{date}</span>
 					</span>
 					<Link
 						href={`/dashboard/user/profile`}
